@@ -38,7 +38,7 @@ function removeTags(str) {
 }
 
 function playSection(offset) {
-    let section = parseInt(document.querySelector(".active").getAttribute("data-index"))+parseInt(offset);
+    let section = parseInt(document.querySelector(".active").getAttribute("data-index"))-1+parseInt(offset);
     let titles = document.querySelectorAll("h2");
     let paragraphs = document.querySelectorAll("p");
     let next = paragraphs[section].nextElementSibling;
@@ -46,7 +46,7 @@ function playSection(offset) {
     let length = listitems.length;
     let list = ""
 
-    if (section == 0) {
+    if (section == -1) {
         section = titles.length;    
     }
     console.log("index: "+section);
