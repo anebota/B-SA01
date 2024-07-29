@@ -6,10 +6,20 @@ document.querySelector("#play").addEventListener("click", () => {
     console.log(section);
     titles = document.querySelectorAll("h2");
     paragraphs = document.querySelectorAll("p");
-    speech.text = removeTags(titles[section].innerHTML + ": " + paragraphs[section].innerHTML);
+    next = paragraphs[section].nextElementSibling;
+    listitems = next.querySelectorAll("li");
+    length = listitems.length;
+    console.log(listitems.length);
+    list = ""
+    listitems.forEach(item => list += item.innerHTML + "; ");
+    speech.text = (titles[section].innerHTML + ": " + paragraphs[section].innerHTML + " " + list);
     console.log(speech.text);
     window.speechSynthesis.speak(speech);
 })
+
+document.querySelectorAll(".carousel-icon").forEach(button => 
+  button.addEventListener("click", () => window.speechSynthesis.cancel())
+)
 
 function removeTags(str) {
     if ((str === null) || (str === ''))
@@ -22,3 +32,4 @@ function removeTags(str) {
     // HTML tag with a null string.
     return str.replace(/(<([^>]+)>)/ig, '');
 }
+
