@@ -46,7 +46,7 @@ function playSection(offset) {
     let length = listitems.length;
     let list = ""
 
-    if (section == -1) {
+    if (section == 0) {
         section = titles.length;    
     }
     console.log("index: "+section);
