@@ -49,6 +49,9 @@ function playSection(offset) {
     if (section == -1) {
         section = titles.length;    
     }
+    if (section == 13) {
+        section = 0;    
+    }
     console.log("index: "+section);
     console.log(listitems.length);
     listitems.forEach(item => list += item.innerHTML + "; ");
