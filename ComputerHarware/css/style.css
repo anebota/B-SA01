@@ -27,3 +27,7 @@ ul {
     opacity:0.70;
     border-radius: 50%;
 }
+
+.align-right {
+    text-align: right;
+}
