@@ -6,7 +6,11 @@ document.querySelector("#play").addEventListener("click", () => {
     playSection(0);
 })
 
-document.querySelector(".carousel-control-prev").addEventListener("click", () => {
+document.querySelector("#stop").addEventListener("click", () => {
+    window.speechSynthesis.cancel();
+})
+
+document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
     autoplay = document.querySelector("#auto").checked;
     console.log("auto: "+autoplay);
@@ -15,7 +19,7 @@ document.querySelector(".carousel-control-prev").addEventListener("click", () =>
     }
 })
 
-document.querySelector(".carousel-control-next").addEventListener("click", () => {
+document.querySelector("#next").addEventListener("click", () => {
     window.speechSynthesis.cancel();
     autoplay = document.querySelector("#auto").checked;
     console.log("auto: "+autoplay);
