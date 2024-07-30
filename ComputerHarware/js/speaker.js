@@ -75,5 +75,6 @@ function playSection(offset) {
     listitems.forEach(item => list += item.innerHTML + "; ");
     speech.text = (titles[section].innerHTML + ": " + paragraphs[section].innerHTML + " " + list);
     console.log(speech.text);
+    window.location.replace('#section'+parseInt(section+1));
     window.speechSynthesis.speak(speech);
 }
