@@ -54,7 +54,17 @@ document.querySelector("#prev").addEventListener("click", () => {
     scrollSmoothTo('section'+parseInt(section+1));
     if (autoplay) {
         playSection(-1);
-    }    
+    }
+    if (section == 0) {
+        document.querySelector("#prev").classList.add("disabled");
+    } else {
+        document.querySelector("#prev").classList.remove("disabled");
+    }        
+    if (section == max) {
+        document.querySelector("#next").classList.add("disabled");
+    } else {
+        document.querySelector("#next").classList.remove("disabled");
+    }        
 })
 
 document.querySelector("#next").addEventListener("click", () => {
@@ -78,6 +88,16 @@ document.querySelector("#next").addEventListener("click", () => {
     scrollSmoothTo('section'+parseInt(section+1));
     if (autoplay) {
         playSection(1);
+    }
+    if (section == 0) {
+        document.querySelector("#prev").classList.add("disabled");
+    } else {
+        document.querySelector("#prev").classList.remove("disabled");
+    }     
+    if (section == max) {
+        document.querySelector("#next").classList.add("disabled");
+    } else {
+        document.querySelector("#next").classList.remove("disabled");
     }
 })
 
