@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
-  <div class="container-fluid min-vh-100 d-flex flex-column">
+<body class="full-screen">
+  <div class="container-fluid ">
     <div class="row">
       <div class="col">
         <h1>Understanding Computer Hardware: A Beginner's Guide</h1>
@@ -62,7 +62,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row controls">
           <div class="col-10">
             <button id="play" type="button" class="btn btn-primary btn-md">Play</button>
             <button id="stop" type="button" class="btn btn-primary btn-md">Stop</button>
@@ -71,7 +71,7 @@
             <button id="next" type="button" class="btn btn-primary btn-md" data-bs-target="#carouselExampleIndicators"
               data-bs-slide="next">Next</button>
           </div>
-          <div class="col-2 align-right">
+          <div class="col-2 controls align-right">
             <input id="auto" class="check-input" type="checkbox" value="" checked>
             <label class="form-check-label" for="check-input">
               Auto Play
@@ -79,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="col-3 overflow-auto">
+      <div class="col-3 scrollable">
         <h2>Introduction</h2>
         <p>Welcome to the world of computers! This guide will introduce you to the fundamental building blocks of a
           computer: its hardware components. Think of hardware as the physical parts of a computer that you can touch

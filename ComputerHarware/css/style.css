@@ -25,10 +25,18 @@ ul {
     margin-bottom: 5px;
 }
 
-.carousel-icon {
-    background-color: black;
-    opacity:0.70;
-    border-radius: 50%;
+html,body{ margin:0; padding:0; height:100%; width:100%; }
+
+.full-screen {
+    position: fixed;
+    height:100%;
+    width:100%;
+    padding: 25px;
+    overflow:hidden; 
+}
+
+.controls {
+    padding: 10px 0;
 }
 
 .align-right {
@@ -36,5 +44,5 @@ ul {
 }
 
 .scrollable {
-    overflow-y: hidden;
+    overflow: scroll;
 }
