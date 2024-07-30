@@ -27,7 +27,6 @@ document.querySelector("#stop").addEventListener("click", () => {
 document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
     autoplay = document.querySelector("#auto").checked;
-    console.log("auto: "+autoplay);
     if (autoplay) {
         playSection(-1);
     }
@@ -36,7 +35,6 @@ document.querySelector("#prev").addEventListener("click", () => {
 document.querySelector("#next").addEventListener("click", () => {
     window.speechSynthesis.cancel();
     autoplay = document.querySelector("#auto").checked;
-    console.log("auto: "+autoplay);
     if (autoplay) {
         playSection(1);
     }
@@ -56,25 +54,26 @@ function removeTags(str) {
 }
 
 function playSection(offset) {
-    let section = parseInt(document.querySelector(".active").getAttribute("data-index"))-1+parseInt(offset);
+    let section = parseInt(document.querySelector(".active").getAttribute("data-index"))+parseInt(offset)-1;
+    console.log("index: "+section);
     let titles = document.querySelectorAll("h2");
     let paragraphs = document.querySelectorAll("p");
-    let next = paragraphs[section].nextElementSibling;
-    let listitems = next.querySelectorAll("li");
-    let length = listitems.length;
-    let list = ""
-
-    if (section == -1) {
-        section = titles.length;    
+    let length = parseInt(titles.length);
+    console.log("header: "+length);
+    if (section < 0) {
+        section = length-1;    
     }
-    if (section == 13) {
+    if (section > (length-1)) {
         section = 0;    
     }
-    console.log("index: "+section);
-    console.log(listitems.length);
+    console.log("new index: "+section);
+    let next = paragraphs[section].nextElementSibling;
+    let listitems = next.querySelectorAll("li");
+    let list = ""
     listitems.forEach(item => list += item.innerHTML + "; ");
     speech.text = (titles[section].innerHTML + ": " + paragraphs[section].innerHTML + " " + list);
     console.log(speech.text);
     window.location.replace('#section'+parseInt(section+1));
+    console.log('#section'+parseInt(section+1));
     window.speechSynthesis.speak(speech);
 }
