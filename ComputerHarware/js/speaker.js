@@ -51,7 +51,7 @@ document.querySelector("#prev").addEventListener("click", () => {
         document.querySelector("#progress").style = "width: "+progress+"%;";    
     }
     console.log('#section'+parseInt(section));
-    window.location.replace('#section'+parseInt(section+1));
+    scrollSmoothTo('section'+parseInt(section+1));
     if (autoplay) {
         playSection(-1);
     }    
@@ -75,7 +75,7 @@ document.querySelector("#next").addEventListener("click", () => {
         document.querySelector("#progress").style = "width: "+progress+"%;";    
     }
     console.log('#section'+parseInt(section));
-    window.location.replace('#section'+parseInt(section+1));
+    scrollSmoothTo('section'+parseInt(section+1));
     if (autoplay) {
         playSection(1);
     }
@@ -93,6 +93,14 @@ function removeTags(str) {
     // HTML tag with a null string.
     return str.replace(/(<([^>]+)>)/ig, '');
 }
+
+function scrollSmoothTo(elementId) {
+    var element = document.getElementById(elementId);
+    element.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth'
+    });
+  }
 
 function playSection(offset) {
     let section = parseInt(document.querySelector(".active").getAttribute("data-index"))+parseInt(offset)-1;
