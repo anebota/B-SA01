@@ -1,8 +1,12 @@
 let speech = new SpeechSynthesisUtterance();
-
 let voices = [];
-
 let voiceSelect = document.querySelector("#voices")
+let max = parseInt(document.querySelectorAll("h2").length)-1;
+let autoplay = true;
+let interval = 100/max;
+
+console.log("max: "+(max)+" Interval: "+interval);
+console.log("autoplay: "+autoplay);
 
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
@@ -13,6 +17,11 @@ window.speechSynthesis.onvoiceschanged = () => {
 
 voiceSelect.addEventListener("change", () => {
     speech.voice = voices[voiceSelect.value];
+})
+
+document.querySelector("#auto").addEventListener("change", () => {
+    autoplay = document.querySelector("#auto").checked;
+    console.log("autoplay: "+autoplay);
 })
 
 document.querySelector("#play").addEventListener("click", () => {
@@ -26,15 +35,47 @@ document.querySelector("#stop").addEventListener("click", () => {
 
 document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    autoplay = document.querySelector("#auto").checked;
+    let section = parseInt(document.querySelector(".active").getAttribute("data-index"))-2;
+    if (section < 0) {
+        section = (max);    
+    }
+    if (section > (max)) {
+        section = 0;    
+    }    
+    let progress = Math.ceil((interval)*(section));
+    console.log("progress: "+progress+"%");
+    document.querySelector("#progress").innerHTML = progress+"%";
+    if (section == 0) {
+        document.querySelector("#progress").style = "width: 5%;";    
+    } else {
+        document.querySelector("#progress").style = "width: "+progress+"%;";    
+    }
+    console.log('#section'+parseInt(section));
+    window.location.replace('#section'+parseInt(section+1));
     if (autoplay) {
         playSection(-1);
-    }
+    }    
 })
 
 document.querySelector("#next").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    autoplay = document.querySelector("#auto").checked;
+    let section = parseInt(document.querySelector(".active").getAttribute("data-index"));
+    if (section < 0) {
+        section = (max);    
+    }
+    if (section > (max)) {
+        section = 0;    
+    }    
+    let progress = Math.ceil((interval)*(section));
+    console.log("progress: "+progress+"%");
+    document.querySelector("#progress").innerHTML = progress+"%";
+    if (section == 0) {
+        document.querySelector("#progress").style = "width: 5%;";    
+    } else {
+        document.querySelector("#progress").style = "width: "+progress+"%;";    
+    }
+    console.log('#section'+parseInt(section));
+    window.location.replace('#section'+parseInt(section+1));
     if (autoplay) {
         playSection(1);
     }
@@ -61,9 +102,9 @@ function playSection(offset) {
     let length = parseInt(titles.length);
     console.log("header: "+length);
     if (section < 0) {
-        section = length-1;    
+        section = (max);    
     }
-    if (section > (length-1)) {
+    if (section > (max)) {
         section = 0;    
     }
     console.log("new index: "+section);
@@ -72,8 +113,5 @@ function playSection(offset) {
     let list = ""
     listitems.forEach(item => list += item.innerHTML + "; ");
     speech.text = (titles[section].innerHTML + ": " + paragraphs[section].innerHTML + " " + list);
-    console.log(speech.text);
-    window.location.replace('#section'+parseInt(section+1));
-    console.log('#section'+parseInt(section+1));
     window.speechSynthesis.speak(speech);
 }
