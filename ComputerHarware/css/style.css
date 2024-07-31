@@ -47,6 +47,26 @@ body {
     overflow: hidden;
 }
 
+.nav-link {
+    color: black;
+}
+
+.nav-link:hover {
+    color: black;
+    background-color: #77d7aa !important;
+}
+
+.nav-link.active {
+    color: black !important;
+    background-color: #77d7aa !important;
+}
+
+.nav-link.disabled {
+    color: white !important;
+    background-color: darkgray !important;
+}
+
+
 .controls {
     padding: 10px 0;
 }
@@ -60,6 +80,11 @@ body {
 .progress {
     height: 40px;
     padding: 0;
+}
+
+.progress-bar {
+    background-color: #77d7aa !important;
+    color: black;
 }
 
 .align-right {

@@ -4,9 +4,9 @@ let voiceSelect = document.querySelector("#voices")
 let max = parseInt(document.querySelectorAll("section h2").length) - 1;
 let autoplay = true;
 let interval = 100 / max;
-let debug = false;
-let defaultvoice = 4;
-let mysection = sessionStorage.getItem("section");
+let debug = true;
+let defaultvoice = 2;
+//let mysection = sessionStorage.getItem("section");
 
 if (debug) console.log("max: " + (max) + " Interval: " + interval);
 if (debug) console.log("autoplay: " + autoplay);
@@ -38,7 +38,7 @@ document.querySelector("#stop").addEventListener("click", () => {
 
 document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    let section = parseInt(document.querySelector(".active").getAttribute("data-index")) - 2;
+    let section = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 2;
     if (section < 0) {
         section = (max);
     }
@@ -65,6 +65,7 @@ document.querySelector("#prev").addEventListener("click", () => {
     }
     if (section == max) {
         document.querySelector("#next").classList.add("disabled");
+        document.querySelector("#quiz").classList.remove("disabled");
     } else {
         document.querySelector("#next").classList.remove("disabled");
     }
@@ -72,13 +73,14 @@ document.querySelector("#prev").addEventListener("click", () => {
 
 document.querySelector("#next").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    let section = parseInt(document.querySelector(".active").getAttribute("data-index"));
+    let section = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index"));
     if (section < 0) {
         section = (max);
     }
     if (section > (max)) {
         section = 0;
     }
+    if (debug) console.log("index: " + (section));
     let progress = Math.ceil((interval) * (section));
     if (debug) console.log("progress: " + progress + "%");
     document.querySelector("#progress").innerHTML = progress + "%";
@@ -99,6 +101,7 @@ document.querySelector("#next").addEventListener("click", () => {
     }
     if (section == max) {
         document.querySelector("#next").classList.add("disabled");
+        document.querySelector("#quiz").classList.remove("disabled");
     } else {
         document.querySelector("#next").classList.remove("disabled");
     }
@@ -126,7 +129,7 @@ function scrollSmoothTo(elementId) {
 }
 
 function playSection(offset) {
-    let section = parseInt(document.querySelector(".active").getAttribute("data-index")) + parseInt(offset) - 1;
+    let section = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) + parseInt(offset) - 1;
     if (debug) console.log("index: " + section);
     let titles = document.querySelectorAll("section h2");
     let paragraphs = document.querySelectorAll("section p");
