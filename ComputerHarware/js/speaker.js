@@ -1,7 +1,7 @@
 let speech = new SpeechSynthesisUtterance();
 let voices = [];
 let voiceSelect = document.querySelector("#voices")
-let max = parseInt(document.querySelectorAll("h2").length) - 1;
+let max = parseInt(document.querySelectorAll("section h2").length) - 1;
 let autoplay = true;
 let interval = 100 / max;
 
@@ -127,8 +127,8 @@ function scrollSmoothTo(elementId) {
 function playSection(offset) {
     let section = parseInt(document.querySelector(".active").getAttribute("data-index")) + parseInt(offset) - 1;
     console.log("index: " + section);
-    let titles = document.querySelectorAll("h2");
-    let paragraphs = document.querySelectorAll("p");
+    let titles = document.querySelectorAll("section h2");
+    let paragraphs = document.querySelectorAll("section p");
     let length = parseInt(titles.length);
     console.log("header: " + length);
     if (section < 0) {
@@ -139,7 +139,7 @@ function playSection(offset) {
     }
     console.log("new index: " + section);
     let next = paragraphs[section].nextElementSibling;
-    let listitems = next.querySelectorAll("li");
+    let listitems = next.querySelectorAll("section li");
     let list = ""
     listitems.forEach(item => list += item.innerHTML + "; ");
     speech.text = (titles[section].innerHTML + ": " + paragraphs[section].innerHTML + " " + list);
