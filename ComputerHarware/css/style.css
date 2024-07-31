@@ -3,13 +3,13 @@ body {
     margin: 10px;
 }
 
+section:not(:first-child) {
+    margin-top: 40px;
+}
+
 h1 {
     font-size: 24px;
     margin-bottom: 20px;
-}
-
-h2:not(:first-child) {
-    margin-top: 40px;
 }
 
 h2 {
