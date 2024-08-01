@@ -3,8 +3,8 @@ body {
     margin: 10px;
 }
 
-section:not(:first-child) {
-    margin-top: 40px;
+section {
+    margin-top: 10px;
 }
 
 h1 {
@@ -71,6 +71,13 @@ body {
     background-color: darkgray !important;
 }
 
+.learnsection {
+    display: none;
+}
+
+.learnsection.active {
+    display: block;
+}
 
 .controls {
     padding: 10px 0;

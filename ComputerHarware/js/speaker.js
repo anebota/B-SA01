@@ -1,7 +1,7 @@
 let speech = new SpeechSynthesisUtterance();
 let voices = [];
 let voiceSelect = document.querySelector("#voices")
-let autoplay = true;
+let autoplay = false;
 let view = "learn";
 let max = 0;
 let currentSection = 0;
@@ -41,38 +41,28 @@ document.querySelector("#stop").addEventListener("click", () => {
 
 document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    let section = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 2;
-    if (section < 0) {
-        section = (max);
-    }
-    if (section > (max)) {
-        section = 0;
-    }
-    updateProcessBar(section);
-    if (debug) console.log('#section' + parseInt(section));
-    scrollSmoothTo('section' + parseInt(section + 1));
+    let index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 1;
+    updateProcessBar(index-1);
+    if (debug) console.log('#section' + parseInt(index+1));
+    scrollSmoothTo('section' + parseInt(index+1));
     if (autoplay) {
         playSection(-1);
     }
-    checkNav(section);
+    checkNav(index-1);
+    showContent (index-1);
 })
 
 document.querySelector("#next").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    let section = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index"));
-    if (section < 0) {
-        section = (max);
-    }
-    if (section > (max)) {
-        section = 0;
-    }
-    updateProcessBar(section);
-    if (debug) console.log('#section' + parseInt(section));
-    scrollSmoothTo('section' + parseInt(section + 1));
+    let index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index"));
+    updateProcessBar(index);
+    if (debug) console.log('#section' + parseInt(index));
+    scrollSmoothTo('section' + parseInt(index+1));
     if (autoplay) {
         playSection(1);
     }
-    checkNav(section);
+    checkNav(index);
+    showContent (index);
 })
 
 function checkNav(section){
@@ -87,6 +77,12 @@ function checkNav(section){
     } else {
         document.querySelector("#next").classList.remove("disabled");
     }    
+}
+
+function showContent (section){
+    document.querySelector(".learnsection.active").classList.remove("active");
+    document.querySelector("#section"+parseInt(section + 1)).classList.add("active");
+    if (debug) console.log("content: section" + (section));
 }
 
 function updateProcessBar(section){
@@ -160,6 +156,28 @@ function playSection(offset) {
     window.speechSynthesis.speak(speech);
 }
 
+
+document.querySelector("#learn").addEventListener("click", () => {
+    document.querySelector(".learn").classList.remove("hide");
+    document.querySelector(".quiz").classList.add("hide");
+    document.querySelector("#learn").classList.add("active");
+    document.querySelector("#quiz").classList.remove("active");
+    view = "learn";
+    updateProcessBar(currentSection);
+})
+
+document.querySelector("#quiz").addEventListener("click", () => {
+    window.speechSynthesis.cancel();
+    document.querySelector(".quiz").classList.remove("hide");
+    document.querySelector(".learn").classList.add("hide");
+    document.querySelector("#quiz").classList.add("active");
+    document.querySelector("#learn").classList.remove("active");
+    view = "quiz";
+    updateProcessBar(currentQuestion);
+})
+
+
+/* removed scroll functionality
 document.querySelector("#content").addEventListener("scroll", () => {
     // Get container scroll position
     var fromTop = document.querySelector("#content").scrollTop+document.querySelector("#content").offsetTop;
@@ -194,22 +212,4 @@ document.querySelector("#content").addEventListener("scroll", () => {
         checkNav(index);
     }
 });
-
-document.querySelector("#learn").addEventListener("click", () => {
-    document.querySelector(".learn").classList.remove("hide");
-    document.querySelector(".quiz").classList.add("hide");
-    document.querySelector("#learn").classList.add("active");
-    document.querySelector("#quiz").classList.remove("active");
-    view = "learn";
-    updateProcessBar(currentSection);
-})
-
-document.querySelector("#quiz").addEventListener("click", () => {
-    window.speechSynthesis.cancel();
-    document.querySelector(".quiz").classList.remove("hide");
-    document.querySelector(".learn").classList.add("hide");
-    document.querySelector("#quiz").classList.add("active");
-    document.querySelector("#learn").classList.remove("active");
-    view = "quiz";
-    updateProcessBar(currentQuestion);
-})
+*/
