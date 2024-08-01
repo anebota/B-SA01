@@ -1,16 +1,14 @@
 let speech = new SpeechSynthesisUtterance();
 let voices = [];
 let voiceSelect = document.querySelector("#voices")
-let max = parseInt(document.querySelectorAll("section h2").length) - 1;
 let autoplay = true;
-let interval = 100 / max;
-let debug = false;
+let view = "learn";
+let debug = true;
 let defaultvoice = 2;
 var lastId;
 
 //let mysection = sessionStorage.getItem("section");
 
-if (debug) console.log("max: " + (max) + " Interval: " + interval);
 if (debug) console.log("autoplay: " + autoplay);
 
 window.speechSynthesis.onvoiceschanged = () => {
@@ -89,8 +87,16 @@ function checkNav(section){
 }
 
 function updateProcessBar(section){
-    if (debug) console.log("index: " + (section));
-    let progress = Math.ceil((interval) * (section));
+    if (view == "learn") {
+        if (debug) console.log("index: " + (section));
+        let max = parseInt(document.querySelectorAll(".learn section h2").length) - 1;
+        let interval = 100 / max;
+        let progress = Math.ceil((interval) * (section));
+    } else {
+        let max = parseInt(document.querySelectorAll(".quiz section h3").length) - 1;
+        let progress = section / max;
+    }
+    if (debug) console.log("max: " + (max) + " Interval: " + interval);
     if (debug) console.log("progress: " + progress + "%");
     document.querySelector("#progress").innerHTML = progress + "%";
     if (section == 0) {
@@ -123,8 +129,8 @@ function scrollSmoothTo(elementId) {
 function playSection(offset) {
     let section = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) + parseInt(offset) - 1;
     if (debug) console.log("index: " + section);
-    let titles = document.querySelectorAll("section h2");
-    let paragraphs = document.querySelectorAll("section p");
+    let titles = document.querySelectorAll(".learn section h2");
+    let paragraphs = document.querySelectorAll(".learn section p");
     let length = parseInt(titles.length);
     if (debug) console.log("header: " + length);
     if (section < 0) {
@@ -137,7 +143,7 @@ function playSection(offset) {
     let list = ""
     try {
         let next = paragraphs[section].nextElementSibling;
-        let listitems = next.querySelectorAll("section li");
+        let listitems = next.querySelectorAll(".learn section li");
         listitems.forEach(item => list += item.innerHTML + "; ");
     } catch (err) {
         if (debug) console.log("no list");
@@ -155,7 +161,7 @@ document.querySelector("#content").addEventListener("scroll", () => {
     // Get id of current scroll item 
     //console.log(document.querySelectorAll("section"));
     var cur;
-    document.querySelectorAll("section").forEach(item => {
+    document.querySelectorAll(".learn section").forEach(item => {
         //console.log(item.id+": "+item.offsetTop);
         if (item.offsetTop < fromTop)
             cur = item;
@@ -176,12 +182,25 @@ document.querySelector("#content").addEventListener("scroll", () => {
         if (debug) console.log("slide: "+slide);
         document.querySelector(".carousel-item.active").classList.remove("active");
         document.querySelector("#"+slide).classList.add("active");
+        updateProcessBar(index);
         if (debug) console.log("id: " + id);
         checkNav(index);
     }
 });
 
+document.querySelector("#learn").addEventListener("click", () => {
+    document.querySelector(".learn").classList.remove("hide");
+    document.querySelector(".quiz").classList.add("hide");
+    document.querySelector("#learn").classList.add("active");
+    document.querySelector("#quiz").classList.remove("active");
+    view = "learn";
+})
+
 document.querySelector("#quiz").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    document.querySelectorAll(".learn").classList.add("hide");
+    document.querySelector(".quiz").classList.remove("hide");
+    document.querySelector(".learn").classList.add("hide");
+    document.querySelector("#quiz").classList.add("active");
+    document.querySelector("#learn").classList.remove("active");
+    view = "quiz";
 })
