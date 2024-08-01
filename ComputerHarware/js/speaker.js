@@ -3,6 +3,9 @@ let voices = [];
 let voiceSelect = document.querySelector("#voices")
 let autoplay = true;
 let view = "learn";
+let max = 0;
+let currentSection = 0;
+let currentQuestion = 0;
 let debug = true;
 let defaultvoice = 2;
 var lastId;
@@ -87,15 +90,19 @@ function checkNav(section){
 }
 
 function updateProcessBar(section){
+    let current = 0;
     if (view == "learn") {
         if (debug) console.log("index: " + (section));
-        let max = parseInt(document.querySelectorAll(".learn section h2").length) - 1;
-        let interval = 100 / max;
-        let progress = Math.ceil((interval) * (section));
+        max = parseInt(document.querySelectorAll(".learn section h2").length) - 1;
+        currentSection = section;
+        current = currentSection;
     } else {
-        let max = parseInt(document.querySelectorAll(".quiz section h3").length) - 1;
-        let progress = section / max;
+        max = parseInt(document.querySelectorAll(".quiz section h3").length);
+        currentQuestion = section;
+        current = currentQuestion;
     }
+    let interval = 100 / max;
+    let progress = Math.ceil((interval) * (current));
     if (debug) console.log("max: " + (max) + " Interval: " + interval);
     if (debug) console.log("progress: " + progress + "%");
     document.querySelector("#progress").innerHTML = progress + "%";
@@ -194,6 +201,7 @@ document.querySelector("#learn").addEventListener("click", () => {
     document.querySelector("#learn").classList.add("active");
     document.querySelector("#quiz").classList.remove("active");
     view = "learn";
+    updateProcessBar(currentSection);
 })
 
 document.querySelector("#quiz").addEventListener("click", () => {
@@ -203,4 +211,5 @@ document.querySelector("#quiz").addEventListener("click", () => {
     document.querySelector("#quiz").classList.add("active");
     document.querySelector("#learn").classList.remove("active");
     view = "quiz";
+    updateProcessBar(currentQuestion);
 })
