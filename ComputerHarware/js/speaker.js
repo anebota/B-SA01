@@ -4,8 +4,10 @@ let voiceSelect = document.querySelector("#voices")
 let max = parseInt(document.querySelectorAll("section h2").length) - 1;
 let autoplay = true;
 let interval = 100 / max;
-let debug = true;
+let debug = false;
 let defaultvoice = 2;
+var lastId;
+
 //let mysection = sessionStorage.getItem("section");
 
 if (debug) console.log("max: " + (max) + " Interval: " + interval);
@@ -45,30 +47,13 @@ document.querySelector("#prev").addEventListener("click", () => {
     if (section > (max)) {
         section = 0;
     }
-    let progress = Math.ceil((interval) * (section));
-    if (debug) console.log("progress: " + progress + "%");
-    document.querySelector("#progress").innerHTML = progress + "%";
-    if (section == 0) {
-        document.querySelector("#progress").style = "width: 5%;";
-    } else {
-        document.querySelector("#progress").style = "width: " + progress + "%;";
-    }
+    updateProcessBar(section);
     if (debug) console.log('#section' + parseInt(section));
     scrollSmoothTo('section' + parseInt(section + 1));
     if (autoplay) {
         playSection(-1);
     }
-    if (section == 0) {
-        document.querySelector("#prev").classList.add("disabled");
-    } else {
-        document.querySelector("#prev").classList.remove("disabled");
-    }
-    if (section == max) {
-        document.querySelector("#next").classList.add("disabled");
-        document.querySelector("#quiz").classList.remove("disabled");
-    } else {
-        document.querySelector("#next").classList.remove("disabled");
-    }
+    checkNav(section);
 })
 
 document.querySelector("#next").addEventListener("click", () => {
@@ -80,20 +65,16 @@ document.querySelector("#next").addEventListener("click", () => {
     if (section > (max)) {
         section = 0;
     }
-    if (debug) console.log("index: " + (section));
-    let progress = Math.ceil((interval) * (section));
-    if (debug) console.log("progress: " + progress + "%");
-    document.querySelector("#progress").innerHTML = progress + "%";
-    if (section == 0) {
-        document.querySelector("#progress").style = "width: 5%;";
-    } else {
-        document.querySelector("#progress").style = "width: " + progress + "%;";
-    }
+    updateProcessBar(section);
     if (debug) console.log('#section' + parseInt(section));
     scrollSmoothTo('section' + parseInt(section + 1));
     if (autoplay) {
         playSection(1);
     }
+    checkNav(section);
+})
+
+function checkNav(section){
     if (section == 0) {
         document.querySelector("#prev").classList.add("disabled");
     } else {
@@ -104,9 +85,20 @@ document.querySelector("#next").addEventListener("click", () => {
         document.querySelector("#quiz").classList.remove("disabled");
     } else {
         document.querySelector("#next").classList.remove("disabled");
-    }
-})
+    }    
+}
 
+function updateProcessBar(section){
+    if (debug) console.log("index: " + (section));
+    let progress = Math.ceil((interval) * (section));
+    if (debug) console.log("progress: " + progress + "%");
+    document.querySelector("#progress").innerHTML = progress + "%";
+    if (section == 0) {
+        document.querySelector("#progress").style = "width: 5%;";
+    } else {
+        document.querySelector("#progress").style = "width: " + progress + "%;";
+    }
+}
 
 function removeTags(str) {
     if ((str === null) || (str === ''))
@@ -155,14 +147,9 @@ function playSection(offset) {
     window.speechSynthesis.speak(speech);
 }
 
-
-// Cache selectors
-var lastId;
-//document.querySelectorAll("section").forEach(item => console.log(item.id+": "+item.offsetTop))
-
 document.querySelector("#content").addEventListener("scroll", () => {
     // Get container scroll position
-    var fromTop = document.querySelector("#content").scrollTop+document.querySelector("#content").offsetTop+35;
+    var fromTop = document.querySelector("#content").scrollTop+document.querySelector("#content").offsetTop;
 
     //console.log("fromTop: "+fromTop);
     // Get id of current scroll item 
@@ -175,15 +162,26 @@ document.querySelector("#content").addEventListener("scroll", () => {
     });
     //console.log(cur);
     // Get the id of the current element
-    var id = cur.id;
+    try {
+        var id = cur.id;
+    } catch (err) {
+        var id = "section1";
+    }
 
     if (lastId !== id) {
         lastId = id;
         // Set/remove active class
         slide = id.replace("section","slide");
-        console.log("slide: "+slide);
+        index = parseInt(id.replace("section",""))-1;
+        if (debug) console.log("slide: "+slide);
         document.querySelector(".carousel-item.active").classList.remove("active");
         document.querySelector("#"+slide).classList.add("active");
-        console.log("id: " + id);
+        if (debug) console.log("id: " + id);
+        checkNav(index);
     }
 });
+
+document.querySelector("#quiz").addEventListener("click", () => {
+    window.speechSynthesis.cancel();
+    document.querySelectorAll(".learn").classList.add("hide");
+})
