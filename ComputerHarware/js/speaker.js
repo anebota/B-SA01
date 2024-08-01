@@ -151,6 +151,39 @@ function playSection(offset) {
         if (debug) console.log("no list");
     }
     speech.text = removeTags(titles[section].innerHTML + ": " + paragraphs[section].innerHTML + " " + list).replace(/\s+/g, " ");
-    if (debug) console.log("read text:"+speech.text);
+    if (debug) console.log("read text:" + speech.text);
     window.speechSynthesis.speak(speech);
 }
+
+
+// Cache selectors
+var lastId;
+//document.querySelectorAll("section").forEach(item => console.log(item.id+": "+item.offsetTop))
+
+document.querySelector("#content").addEventListener("scroll", () => {
+    // Get container scroll position
+    var fromTop = document.querySelector("#content").scrollTop+document.querySelector("#content").offsetTop+35;
+
+    //console.log("fromTop: "+fromTop);
+    // Get id of current scroll item 
+    //console.log(document.querySelectorAll("section"));
+    var cur;
+    document.querySelectorAll("section").forEach(item => {
+        //console.log(item.id+": "+item.offsetTop);
+        if (item.offsetTop < fromTop)
+            cur = item;
+    });
+    //console.log(cur);
+    // Get the id of the current element
+    var id = cur.id;
+
+    if (lastId !== id) {
+        lastId = id;
+        // Set/remove active class
+        slide = id.replace("section","slide");
+        console.log("slide: "+slide);
+        document.querySelector(".carousel-item.active").classList.remove("active");
+        document.querySelector("#"+slide).classList.add("active");
+        console.log("id: " + id);
+    }
+});
