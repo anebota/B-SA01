@@ -200,10 +200,8 @@ for (let q = 1; q <= 1; q++) {
 for (let a = 1; a <= 4; a++) {
     document.querySelector(".q"+q+"-" + a).addEventListener("click", () => {
         if (debug) console.log("q"+q+"-" + a + "clicked");
-        document.querySelector(".right").classList.remove("right");
-        document.querySelectorAll(".wrong").forEach(wrong => {
-            wrong.classList.remove("wrong");
-        });
+        try { document.querySelector(".right").classList.remove("right"); } catch(err) {}
+        try { document.querySelector(".wrong").classList.remove("wrong"); } catch(err) {}
         document.querySelector("#q"+q+"-" + a).setAttribute("checked","checked");
     });
 }

@@ -196,3 +196,11 @@ input[type="radio"] {
 .submit {
     margin-top: 25px;
 }
+
+.questions {
+    display: none;
+}
+
+.questions.active {
+    display: block;
+}
