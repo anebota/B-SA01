@@ -129,12 +129,18 @@ label.box {
     border: 1px solid #ddd;
 }
 
-.answer:checked  {
-    border-color: #77d7aa;
+#q1-1:checked~label.q1-1,
+#q1-2:checked~label.q1-2,
+#q1-3:checked~label.q1-3,
+#q1-4:checked~label.q1-4 {
+    border-color: #dabbfa;
 }
 
-.answer:checked .circle {
-    border: 6px solid #77d7aa;
+#q1-1:checked~label.q1-1 .circle,
+#q1-2:checked~label.q1-2 .circle,
+#q1-3:checked~label.q1-3 .circle,
+#q1-4:checked~label.q1-4 .circle {
+    border: 6px solid #dabbfa;
     background-color: #fff;
 }
 
