@@ -176,6 +176,29 @@ document.querySelector("#quiz").addEventListener("click", () => {
     updateProcessBar(currentQuestion);
 })
 
+document.querySelectorAll(".quizbutton").forEach(quizbutton => {
+    let id = quizbutton.id;
+    if (debug) console.log('question' + id);
+    quizbutton.addEventListener("click", () => {
+        for (let i = 1; i <= 4; i++) {
+            let answer = document.querySelector("#q"+id+"-"+i);
+            if ((answer.checked == true) && (answer.classList.contains("correct"))) {
+                document.querySelector(".quizhint").innerHTML = "Correct!";
+            }
+            if ((answer.checked == true) && (answer.classList.contains("incorrect"))) {
+                document.querySelector(".quizhint").innerHTML = "Incorrect!";
+            }
+          }
+    });
+})
+
+for (let i = 1; i <= 4; i++) {
+    document.querySelector(".q1-"+i).addEventListener("click", () => {
+        if (debug) console.log('q1-' + i + " clicked");
+        document.querySelector("#q1-"+i).click();
+    });
+}
+
 
 /* removed scroll functionality
 document.querySelector("#content").addEventListener("scroll", () => {

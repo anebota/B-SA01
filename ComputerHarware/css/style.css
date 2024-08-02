@@ -129,25 +129,11 @@ label.box {
     border: 1px solid #ddd;
 }
 
-#one:checked~label.first,
-#two:checked~label.second,
-#three:checked~label.third,
-#four:checked~label.forth,
-#five:checked~label.fifth,
-#six:checked~label.sixth,
-#seven:checked~label.seveth,
-#eight:checked~label.eighth {
+.answer:checked  {
     border-color: #77d7aa;
 }
 
-#one:checked~label.first .circle,
-#two:checked~label.second .circle,
-#three:checked~label.third .circle,
-#four:checked~label.forth .circle,
-#five:checked~label.fifth .circle,
-#six:checked~label.sixth .circle,
-#seven:checked~label.seveth .circle,
-#eight:checked~label.eighth .circle {
+.answer:checked .circle {
     border: 6px solid #77d7aa;
     background-color: #fff;
 }

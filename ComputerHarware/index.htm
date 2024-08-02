@@ -29,7 +29,7 @@
         </ul>
       </div>
     </div>
-    <div class="row h-100 learn">
+    <div class="row h-100 learn hide">
       <div class="col-9">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="false" data-bs-ride="false">
           <div class="carousel-inner">
@@ -212,38 +212,39 @@
         </div>
       </div>
     </div>
-    <div class="row h-100 quiz hide">
+    <div class="row h-100 quiz">
       <div class="col-9">
         <div id="quizcontent" class="overflow-auto" style="height: calc(100vh - 140px);">
           <section id="q1">
-            <h3>1. What is the component that temporarily stores data for used by the CPU?</h3>
+            <h3>1. What is the component that temporarily stores data for use by the CPU?</h3>
 
-            <input type="radio" name="box" class="answer incorrect" id="one">
-            <label for="one" class="box first">
+            <input type="radio" name="box" class="answer q1 incorrect" id="q1-1">
+            <label for="q1-1" class="box q1-1">
               <div class="course"> <span class="circle"></span> <span class="subject"> The Storage (SSD or HDD) keeps
                   data for temporary useage.</span> </div>
             </label>
-            <input type="radio" name="box" class="answer incorrect" id="two">
-            <label for="two" class="box second">
+            <input type="radio" name="box" class="answer q1 incorrect" id="q1-2">
+            <label for="q1-2" class="box q1-2">
               <div class="course"> <span class="circle"></span> <span class="subject"> The Power Supply Unit (PSU)
                   stores data persistently for the CPU. </span> </div>
             </label>
-            <input type="radio" name="box" class="answer correct" id="three">
-            <label for="three" class="box third">
+            <input type="radio" name="box" class="answer q1 correct" id="q1-3">
+            <label for="q1-3" class="box q1-3">
               <div class="course"> <span class="circle"></span> <span class="subject"> The Memory (RAM) stores data
                   temporarily for the CPU. </span> </div>
             </label>
-            <input type="radio" name="box" class="answer incorrect" id="four">
-            <label for="four" class="box forth">
+            <input type="radio" name="box" class="answer q1 incorrect" id="q1-4">
+            <label for="q1-4" class="box q1-4">
               <div class="course"> <span class="circle"></span> <span class="subject"> The Central Processing Unit (CPU)
                   stores all it's own data persistently. </span></div>
             </label>
             <div class="submit">
-              <button type="button" class="btn btn-primary btn-md" id="q1">Submit</button>
+              <button type="button" class="btn btn-primary btn-md quizbutton" id="q1" onclick="">Submit</button>
             </div>
           </section>
         </div>
         <div class="col-3">
+          <div id="quizhint" class="overflow-auto" style="height: calc(100vh - 140px);"></div>
         </div>
       </div>
     </div>
