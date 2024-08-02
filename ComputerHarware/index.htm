@@ -29,7 +29,7 @@
         </ul>
       </div>
     </div>
-    <div class="row h-100 learn hide">
+    <div class="row h-100 learn">
       <div class="col-9">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="false" data-bs-ride="false">
           <div class="carousel-inner">
@@ -80,7 +80,6 @@
       </div>
       <div class="col-3">
         <div id="content" class="overflow-auto" style="height: calc(100vh - 140px);">
-
           <section id="section1" class="learnsection active">
             <h2>Introduction</h2>
             <p>
@@ -212,10 +211,10 @@
         </div>
       </div>
     </div>
-    <div class="row h-100 quiz">
+    <div class="row h-100 quiz hide">
       <div class="col-9">
         <div id="quizcontent" class="overflow-auto" style="height: calc(100vh - 140px);">
-          <section id="q1" class="questions active">
+          <section id="q1" class="questions active" data-index="1">
             <h3>1. What is the component that temporarily stores data for use by the CPU?</h3>
 
             <input type="radio" name="q1a" class="answer q1 incorrect" id="q1-1">
@@ -244,7 +243,7 @@
             </div>
           </section>
 
-          <section id="q2" class="questions">
+          <section id="q2" class="questions" data-index="2">
             <h3>2. What is the component that temporarily stores data for use by the CPU?</h3>
 
             <input type="radio" name="q2a" class="answer q2 incorrect" id="q2-1">

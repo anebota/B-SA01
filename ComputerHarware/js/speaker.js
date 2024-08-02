@@ -41,7 +41,12 @@ document.querySelector("#stop").addEventListener("click", () => {
 
 document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    let index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 1;
+    let index = 0;
+    if (view == "learn") {
+        index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 1;
+    } else {
+        index = parseInt(document.querySelector(".questions.active").getAttribute("data-index")) - 1;
+    }
     updateProcessBar(index - 1);
     if (debug) console.log('#section' + parseInt(index + 1));
     scrollSmoothTo('section' + parseInt(index + 1));
@@ -54,10 +59,15 @@ document.querySelector("#prev").addEventListener("click", () => {
 
 document.querySelector("#next").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    let index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index"));
+    let index = 0;
+    if (view == "learn") {
+        index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index"));
+    } else {
+        index = parseInt(document.querySelector(".questions.active").getAttribute("data-index"));
+    }
     updateProcessBar(index);
     if (debug) console.log('#section' + parseInt(index));
-    scrollSmoothTo('section' + parseInt(index + 1));
+    //scrollSmoothTo('section' + parseInt(index + 1));
     if (autoplay) {
         playSection(1);
     }
@@ -65,13 +75,13 @@ document.querySelector("#next").addEventListener("click", () => {
     showContent(index);
 })
 
-function checkNav(section) {
-    if (section == 0) {
+function checkNav(index) {
+    if (index == 0) {
         document.querySelector("#prev").classList.add("disabled");
     } else {
         document.querySelector("#prev").classList.remove("disabled");
     }
-    if (section == max) {
+    if (index == max) {
         document.querySelector("#next").classList.add("disabled");
         document.querySelector("#quiz").classList.remove("disabled");
     } else {
@@ -79,10 +89,19 @@ function checkNav(section) {
     }
 }
 
-function showContent(section) {
-    document.querySelector(".learnsection.active").classList.remove("active");
-    document.querySelector("#section" + parseInt(section + 1)).classList.add("active");
-    if (debug) console.log("content: section" + (section));
+function showContent(index) {
+    if (view == "learn") {
+        document.querySelector(".learnsection.active").classList.remove("active");
+        document.querySelector("#section" + parseInt(index + 1)).classList.add("active");
+        currentSection = parseInt(index);
+    } else {
+        document.querySelector(".questions.active").classList.remove("active");
+        document.querySelector("#q" + parseInt(index + 1)).classList.add("active");
+        currentQuestion = parseInt(index);
+    }
+    if (debug) console.log("content: section" + (index));
+
+
 }
 
 function updateProcessBar(section) {
@@ -182,29 +201,29 @@ document.querySelectorAll(".quizbutton").forEach(quizbutton => {
     quizbutton.addEventListener("click", () => {
         for (let i = 1; i <= 4; i++) {
             let answer = document.querySelector("#" + id + "-" + i);
-            if (debug) console.log(id+' answer'+ i + ": " + answer.checked);
+            if (debug) console.log(id + ' answer' + i + ": " + answer.checked);
             if (debug) console.log("correct answer: " + answer.classList.contains("correct"));
             if ((answer.checked == true) && (answer.classList.contains("correct"))) {
                 document.querySelector("#quizhint").innerHTML = "Correct!";
-                document.querySelector("label."+id+"-"+i).classList.add("right");
+                document.querySelector("label." + id + "-" + i).classList.add("right");
             }
             if ((answer.checked == true) && (answer.classList.contains("incorrect"))) {
                 document.querySelector("#quizhint").innerHTML = "Incorrect!";
-                document.querySelector("label."+id+"-"+i).classList.add("wrong");
+                document.querySelector("label." + id + "-" + i).classList.add("wrong");
             }
         }
     });
 })
 
 for (let q = 1; q <= 1; q++) {
-for (let a = 1; a <= 4; a++) {
-    document.querySelector(".q"+q+"-" + a).addEventListener("click", () => {
-        if (debug) console.log("q"+q+"-" + a + "clicked");
-        try { document.querySelector(".right").classList.remove("right"); } catch(err) {}
-        try { document.querySelector(".wrong").classList.remove("wrong"); } catch(err) {}
-        document.querySelector("#q"+q+"-" + a).setAttribute("checked","checked");
-    });
-}
+    for (let a = 1; a <= 4; a++) {
+        document.querySelector(".q" + q + "-" + a).addEventListener("click", () => {
+            if (debug) console.log("q" + q + "-" + a + "clicked");
+            try { document.querySelector(".right").classList.remove("right"); } catch (err) { }
+            try { document.querySelector(".wrong").classList.remove("wrong"); } catch (err) { }
+            document.querySelector("#q" + q + "-" + a).setAttribute("checked", "checked");
+        });
+    }
 }
 
 
