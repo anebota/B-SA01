@@ -2,7 +2,7 @@ let speech = new SpeechSynthesisUtterance();
 let voices = [];
 let voiceSelect = document.querySelector("#voices")
 let autoplay = false;
-let view = "learn";
+let view = "quiz";
 let max = 0;
 let currentSection = 0;
 let currentQuestion = 0;
@@ -43,7 +43,7 @@ document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
     let index = 0;
     if (view == "learn") {
-        index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 1;
+        index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 2;
     } else {
         index = parseInt(document.querySelector(".questions.active").getAttribute("data-index")) - 1;
     }
@@ -53,8 +53,8 @@ document.querySelector("#prev").addEventListener("click", () => {
     if (autoplay) {
         playSection(-1);
     }
-    checkNav(index - 1);
-    showContent(index - 1);
+    checkNav(index);
+    showContent(index);
 })
 
 document.querySelector("#next").addEventListener("click", () => {
@@ -63,7 +63,7 @@ document.querySelector("#next").addEventListener("click", () => {
     if (view == "learn") {
         index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index"));
     } else {
-        index = parseInt(document.querySelector(".questions.active").getAttribute("data-index"));
+        index = parseInt(document.querySelector(".questions.active").getAttribute("data-index")) + 1;
     }
     updateProcessBar(index);
     if (debug) console.log('#section' + parseInt(index));
@@ -90,18 +90,19 @@ function checkNav(index) {
 }
 
 function showContent(index) {
+    if (debug) console.log("content: section" + (index));
     if (view == "learn") {
         document.querySelector(".learnsection.active").classList.remove("active");
         document.querySelector("#section" + parseInt(index + 1)).classList.add("active");
         currentSection = parseInt(index);
+        if (debug) console.log("current: section" + (currentSection));
     } else {
         document.querySelector(".questions.active").classList.remove("active");
-        document.querySelector("#q" + parseInt(index + 1)).classList.add("active");
+        document.querySelector("#q" + parseInt(index)).classList.add("active");
         currentQuestion = parseInt(index);
+        if (debug) console.log("current: question" + (currentQuestion));
     }
-    if (debug) console.log("content: section" + (index));
-
-
+    
 }
 
 function updateProcessBar(section) {
@@ -183,6 +184,7 @@ document.querySelector("#learn").addEventListener("click", () => {
     document.querySelector("#quiz").classList.remove("active");
     view = "learn";
     updateProcessBar(currentSection);
+    checkNav(currentSection);
 })
 
 document.querySelector("#quiz").addEventListener("click", () => {
@@ -193,6 +195,7 @@ document.querySelector("#quiz").addEventListener("click", () => {
     document.querySelector("#learn").classList.remove("active");
     view = "quiz";
     updateProcessBar(currentQuestion);
+    checkNav(currentQuestion);
 })
 
 document.querySelectorAll(".quizbutton").forEach(quizbutton => {
@@ -219,8 +222,8 @@ for (let q = 1; q <= 1; q++) {
     for (let a = 1; a <= 4; a++) {
         document.querySelector(".q" + q + "-" + a).addEventListener("click", () => {
             if (debug) console.log("q" + q + "-" + a + "clicked");
-            try { document.querySelector(".right").classList.remove("right"); } catch (err) { }
-            try { document.querySelector(".wrong").classList.remove("wrong"); } catch (err) { }
+            try { document.querySelector(".q" + q + "-" + a + ".right").classList.remove("right"); } catch (err) { }
+            try { document.querySelector(".q" + q + "-" + a + ".wrong").classList.remove("wrong"); } catch (err) { }
             document.querySelector("#q" + q + "-" + a).setAttribute("checked", "checked");
         });
     }
