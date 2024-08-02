@@ -59,6 +59,7 @@ body {
 .nav-link:hover {
     color: white;
     background-color: #77d7aa !important;
+    cursor: pointer;
 }
 
 .nav-link.active {
@@ -87,6 +88,14 @@ body {
     width: auto;
     padding: 5px;
     margin-left: 15px;
+}
+
+.select:hover {
+    cursor: pointer;
+}
+
+.check-input:hover {
+    cursor: pointer;
 }
 
 .progress {
@@ -136,6 +145,15 @@ label.box {
     border-color: #dabbfa;
 }
 
+.answer:checked~label.right {
+    border-color: #77d7aa !important;
+}
+
+.answer:checked~label.wrong {
+    border-color: #ff6161 !important;
+}
+
+
 #q1-1:checked~label.q1-1 .circle,
 #q1-2:checked~label.q1-2 .circle,
 #q1-3:checked~label.q1-3 .circle,
@@ -144,8 +162,16 @@ label.box {
     background-color: #fff;
 }
 
+.answer:checked~label.right .circle {
+    border: 6px solid #77d7aa !important;
+}
+
+.answer:checked~label.wrong .circle {
+    border: 6px solid #ff6161 !important;
+}
+
 label.box:hover {
-    background: #dabbfa
+    background: #dabbfa;
 }
 
 label.box .course {

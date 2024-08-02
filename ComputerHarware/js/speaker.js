@@ -180,26 +180,33 @@ document.querySelectorAll(".quizbutton").forEach(quizbutton => {
     let id = quizbutton.id;
     if (debug) console.log('question' + id);
     quizbutton.addEventListener("click", () => {
-
         for (let i = 1; i <= 4; i++) {
             let answer = document.querySelector("#" + id + "-" + i);
             if (debug) console.log(id+' answer'+ i + ": " + answer.checked);
             if (debug) console.log("correct answer: " + answer.classList.contains("correct"));
             if ((answer.checked == true) && (answer.classList.contains("correct"))) {
                 document.querySelector("#quizhint").innerHTML = "Correct!";
+                document.querySelector("label."+id+"-"+i).classList.add("right");
             }
             if ((answer.checked == true) && (answer.classList.contains("incorrect"))) {
                 document.querySelector("#quizhint").innerHTML = "Incorrect!";
+                document.querySelector("label."+id+"-"+i).classList.add("wrong");
             }
         }
     });
 })
 
-for (let i = 1; i <= 4; i++) {
-    document.querySelector(".q1-" + i).addEventListener("click", () => {
-        if (debug) console.log('q1-' + i + "clicked");
-        document.querySelector("#q1-" + i).setAttribute("checked","checked");
+for (let q = 1; q <= 1; q++) {
+for (let a = 1; a <= 4; a++) {
+    document.querySelector(".q"+q+"-" + a).addEventListener("click", () => {
+        if (debug) console.log("q"+q+"-" + a + "clicked");
+        document.querySelector(".right").classList.remove("right");
+        document.querySelectorAll(".wrong").forEach(wrong => {
+            wrong.classList.remove("wrong");
+        });
+        document.querySelector("#q"+q+"-" + a).setAttribute("checked","checked");
     });
+}
 }
 
 
