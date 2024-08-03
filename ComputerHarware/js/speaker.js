@@ -11,6 +11,13 @@ let defaultvoice = 2;
 var lastId;
 
 //let mysection = sessionStorage.getItem("section");
+fetch('data/data.json')
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        // do stuff with your json data here... 
+    })
+
 
 if (debug) console.log("autoplay: " + autoplay);
 
