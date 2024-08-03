@@ -3,13 +3,17 @@ let voices = [];
 let voiceSelect = document.querySelector("#voices")
 let autoplay = false;
 let view = "quiz";
+let currentSection = 1;
+let currentQuestion = 1;
+let prevLock = true;
+let nextLock = false;
 let max = 0;
-let currentSection = 0;
-let currentQuestion = 0;
-let debug = true;
+let debug = false;
 let defaultvoice = 2;
 var lastId;
-var imported = [];
+
+/*
+let imported;
 
 //let mysection = sessionStorage.getItem("section");
 function fetchJSONData() {
@@ -21,17 +25,21 @@ function fetchJSONData() {
             }
             return res.json();
         })
-        .then((data) =>
-            console.log(data))
+        .then((data) => {
+            //if (debug) console.log("data: "+JSON.stringify(data));
+            (imported = data);
+        })
         .catch ((error) =>
         console.error("Unable to fetch data:", error));
-        if (debug) console.log("learn: "+imported);
     }
 fetchJSONData();
 
-
+if (debug) console.log("learn: "+JSON.stringify(imported));
+*/
 
 if (debug) console.log("autoplay: " + autoplay);
+
+start();
 
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
@@ -62,9 +70,9 @@ document.querySelector("#prev").addEventListener("click", () => {
     window.speechSynthesis.cancel();
     let index = 0;
     if (view == "learn") {
-        index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) - 2;
+        index = currentSection - 1;
     } else {
-        index = parseInt(document.querySelector(".questions.active").getAttribute("data-index")) - 1;
+        index = currentQuestion - 1;
     }
     updateProcessBar(index - 1);
     if (debug) console.log('#section' + parseInt(index + 1));
@@ -80,9 +88,9 @@ document.querySelector("#next").addEventListener("click", () => {
     window.speechSynthesis.cancel();
     let index = 0;
     if (view == "learn") {
-        index = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index"));
+        index = currentSection + 1;
     } else {
-        index = parseInt(document.querySelector(".questions.active").getAttribute("data-index")) + 1;
+        index = currentQuestion + 1;
     }
     updateProcessBar(index);
     if (debug) console.log('#section' + parseInt(index));
@@ -95,24 +103,43 @@ document.querySelector("#next").addEventListener("click", () => {
 })
 
 function checkNav(index) {
-    if (index == 0) {
+    if (index == 1) {
+        prevLock = true;
+    } else {
+        prevLock = false;
+    }
+    if (index == max) {
+        nextLock = true;
+    } else {
+        nextLock = false;
+    }
+    learningComplete(index);
+    updateNav();
+}
+
+function learningComplete(index) {
+    if (index == max && view == "learn") {
+        document.querySelector("#quiz").classList.remove("disabled");
+    }
+}
+
+function updateNav() {
+    if (prevLock) {
         document.querySelector("#prev").classList.add("disabled");
     } else {
         document.querySelector("#prev").classList.remove("disabled");
     }
-    if (index == max) {
+    if (nextLock) {
         document.querySelector("#next").classList.add("disabled");
-        document.querySelector("#quiz").classList.remove("disabled");
     } else {
         document.querySelector("#next").classList.remove("disabled");
     }
 }
 
 function showContent(index) {
-    if (debug) console.log("content: section" + (index));
     if (view == "learn") {
         document.querySelector(".learnsection.active").classList.remove("active");
-        document.querySelector("#section" + parseInt(index + 1)).classList.add("active");
+        document.querySelector("#section" + parseInt(index)).classList.add("active");
         currentSection = parseInt(index);
         if (debug) console.log("current: section" + (currentSection));
     } else {
@@ -121,14 +148,28 @@ function showContent(index) {
         currentQuestion = parseInt(index);
         if (debug) console.log("current: question" + (currentQuestion));
     }
+}
 
+function start() {
+    let index = 0;
+    let max = 0;
+    if (view == "learn") {
+        index = currentSection;
+        max = parseInt(document.querySelectorAll(".learn section h2").length);
+    } else {
+        index = currentQuestion;
+        max = parseInt(document.querySelectorAll(".quiz section h3").length);
+    }
+    if (debug) console.log(view + " index: " + index + " max: " + max);
+    checkNav(index);
+    //showContent(index);
 }
 
 function updateProcessBar(section) {
     let current = 0;
     if (view == "learn") {
         if (debug) console.log("index: " + (section));
-        max = parseInt(document.querySelectorAll(".learn section h2").length) - 1;
+        max = parseInt(document.querySelectorAll(".learn section h2").length);
         currentSection = section;
         current = currentSection;
     } else {
@@ -169,23 +210,24 @@ function scrollSmoothTo(elementId) {
 }
 
 function playSection(offset) {
-    let section = parseInt(document.querySelector(".carousel-item.active").getAttribute("data-index")) + parseInt(offset) - 1;
-    if (debug) console.log("index: " + section);
-    let titles = document.querySelectorAll(".learn section h2");
-    let paragraphs = document.querySelectorAll(".learn section p");
+    let section = 0;
+    if (view == "learn") {
+        max = parseInt(document.querySelectorAll(".learn section h2").length);
+        section = currentSection;
+        if (debug) console.log("index: section" + (section));
+    } else {
+        max = parseInt(document.querySelectorAll(".quiz section h3").length);
+        section = currentQuestion;
+        if (debug) console.log("index: question" + (section));
+    }    
+    let titles = document.querySelectorAll("."+view+" section h2");
+    let paragraphs = document.querySelectorAll("."+view+" section p");
     let length = parseInt(titles.length);
     if (debug) console.log("header: " + length);
-    if (section < 0) {
-        section = (max);
-    }
-    if (section > (max)) {
-        section = 0;
-    }
-    if (debug) console.log("new index: " + section);
     let list = ""
     try {
         let next = paragraphs[section].nextElementSibling;
-        let listitems = next.querySelectorAll(".learn section li");
+        let listitems = next.querySelectorAll("."+view+" section li");
         listitems.forEach(item => list += item.innerHTML + "; ");
     } catch (err) {
         if (debug) console.log("no list");
@@ -195,31 +237,45 @@ function playSection(offset) {
     window.speechSynthesis.speak(speech);
 }
 
-
 document.querySelector("#learn").addEventListener("click", () => {
-    document.querySelector(".learn").classList.remove("hide");
-    document.querySelector(".quiz").classList.add("hide");
-    document.querySelector("#learn").classList.add("active");
-    document.querySelector("#quiz").classList.remove("active");
+    window.speechSynthesis.cancel();
+    if (debug) console.log("tab: learn section:"+currentSection);
     view = "learn";
+    updateTab(view)
     updateProcessBar(currentSection);
-    checkNav(currentSection);
+    checkNav(currentSection);    
 })
 
 document.querySelector("#quiz").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    document.querySelector(".quiz").classList.remove("hide");
-    document.querySelector(".learn").classList.add("hide");
-    document.querySelector("#quiz").classList.add("active");
-    document.querySelector("#learn").classList.remove("active");
+    if (debug) console.log("tab: quiz section:"+currentQuestion);
     view = "quiz";
+    updateTab(view)
     updateProcessBar(currentQuestion);
-    checkNav(currentQuestion);
+    checkNav(currentQuestion);    
 })
+
+function updateTab(view) {
+    if (view == "quiz") {
+        document.querySelector(".learn").classList.add("hide");
+        document.querySelector(".quiz").classList.remove("hide");
+        document.querySelector("#quiz").classList.add("active");
+        document.querySelector("#learn").classList.remove("active");
+        updateProcessBar(currentQuestion);
+        checkNav(currentQuestion);        
+    } else {
+        document.querySelector(".quiz").classList.add("hide");
+        document.querySelector(".learn").classList.remove("hide");
+        document.querySelector("#learn").classList.add("active");
+        document.querySelector("#quiz").classList.remove("active");
+        updateProcessBar(currentSection);
+        checkNav(currentSection);        
+    }
+}
 
 document.querySelectorAll(".quizbutton").forEach(quizbutton => {
     let id = quizbutton.id;
-    if (debug) console.log('question' + id);
+    //if (debug) console.log('question' + id);
     quizbutton.addEventListener("click", () => {
         for (let i = 1; i <= 4; i++) {
             let answer = document.querySelector("#" + id + "-" + i);
