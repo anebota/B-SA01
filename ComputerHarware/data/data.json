@@ -1,0 +1,167 @@
+{
+    "learn": {
+        "1": {
+            "img": "1.jpg",
+            "content": "intro"
+        },
+        "2": {
+            "img": "2.jpg",
+            "content": "cpu"
+        },
+        "3": {
+            "img": "3.jpg",
+            "content": "ram"
+        },
+        "4": {
+            "img": "4.jpg",
+            "content": "ssd"
+        },
+        "5": {
+            "img": "5.jpg",
+            "content": ""
+        },
+        "6": {
+            "img": "6.jpg",
+            "content": ""
+        },
+        "7": {
+            "img": "7.jpg",
+            "content": ""
+        },
+        "8": {
+            "img": "8.jpg",
+            "content": ""
+        },
+        "9": {
+            "img": "9.jpg",
+            "content": ""
+        },
+        "10": {
+            "img": "10.jpg",
+            "content": ""
+        },
+        "11": {
+            "img": "11.jpg",
+            "content": ""
+        },
+        "12": {
+            "img": "12.jpg",
+            "content": ""
+        },
+        "13": {
+            "img": "13.jpg",
+            "content": ""
+        },
+        "14": {
+            "img": "14.jpg",
+            "content": ""
+        }
+    },
+    "quiz": {
+        "1": {
+            "qst": "1. what?",
+            "ans": {
+                "1": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "2": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "3": {
+                    "label": "ans",
+                    "correct": "true"
+                },
+                "4": {
+                    "label": "ans",
+                    "correct": "false"
+                }
+            }
+        },
+        "2": {
+            "qst": "2. what?",
+            "ans": {
+                "1": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "2": {
+                    "label": "ans",
+                    "correct": "true"
+                },
+                "3": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "4": {
+                    "label": "ans",
+                    "correct": "false"
+                }
+            }
+        },
+        "3": {
+            "qst": "3. what?",
+            "ans": {
+                "1": {
+                    "label": "ans",
+                    "correct": "true"
+                },
+                "2": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "3": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "4": {
+                    "label": "ans",
+                    "correct": "false"
+                }
+            }
+        },
+        "4": {
+            "qst": "4. what?",
+            "ans": {
+                "1": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "2": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "3": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "4": {
+                    "label": "ans",
+                    "correct": "true"
+                }
+            }
+        },
+        "5": {
+            "qst": "5. what?",
+            "ans": {
+                "1": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "2": {
+                    "label": "ans",
+                    "correct": "true"
+                },
+                "3": {
+                    "label": "ans",
+                    "correct": "false"
+                },
+                "4": {
+                    "label": "ans",
+                    "correct": "false"
+                }
+            }
+        }
+    }
+}

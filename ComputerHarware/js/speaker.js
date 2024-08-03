@@ -9,14 +9,26 @@ let currentQuestion = 0;
 let debug = true;
 let defaultvoice = 2;
 var lastId;
+var imported = [];
 
 //let mysection = sessionStorage.getItem("section");
-fetch('data/data.json')
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-        // do stuff with your json data here... 
-    })
+function fetchJSONData() {
+    fetch("data/data.json")
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error
+                    (`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then((data) =>
+            console.log(data))
+        .catch ((error) =>
+        console.error("Unable to fetch data:", error));
+        if (debug) console.log("learn: "+imported);
+    }
+fetchJSONData();
+
 
 
 if (debug) console.log("autoplay: " + autoplay);
@@ -109,7 +121,7 @@ function showContent(index) {
         currentQuestion = parseInt(index);
         if (debug) console.log("current: question" + (currentQuestion));
     }
-    
+
 }
 
 function updateProcessBar(section) {
