@@ -234,24 +234,30 @@ function scrollSmoothTo(elementId) {
 
 function playSection(offset) {
     let section = 0;
-    let htag = "";
+    let titles = "";
+    let paragraphs = "";
     if (view == "learn") {
         section = currentSection;
-        htag = "h2";
+        titles = document.querySelectorAll("." + view + " section h2");
+        paragraphs = document.querySelectorAll("." + view + " section p");
         if (debug) console.log("index: section" + (section));
     } else {
         section = currentQuestion;
-        htag = "h3";
+        titles = document.querySelectorAll("." + view + " section h3");
+        paragraphs = document.querySelectorAll("." + view + " questions");
         if (debug) console.log("index: question" + (section));
     }
-    let titles = document.querySelectorAll("." + view + " section "+htag);
-    let paragraphs = document.querySelectorAll("." + view + " section p");
     let length = parseInt(titles.length);
     if (debug) console.log("header: " + length);
     let list = ""
     try {
         let next = paragraphs[section].nextElementSibling;
-        let listitems = next.querySelectorAll("." + view + " section li");
+        let listitems = [];
+        if (view == "learn") {
+            let listitems = next.querySelectorAll("." + view + " section li");
+        } else {
+
+        }
         listitems.forEach(item => list += item.innerHTML + "; ");
     } catch (err) {
         if (debug) console.log("no list");
