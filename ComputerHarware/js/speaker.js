@@ -173,6 +173,7 @@ function showContent(index) {
         document.querySelector("#q" + parseInt(index)).classList.add("active");
         currentQuestion = parseInt(index);
         if (debug) console.log("current: question" + (currentQuestion));
+        if (index == 3) {celebrate()}
     }
 }
 
@@ -244,25 +245,35 @@ function playSection(offset) {
     } else {
         section = currentQuestion;
         titles = document.querySelectorAll("." + view + " section h3");
-        paragraphs = document.querySelectorAll("." + view + " questions");
+        //paragraphs = document.querySelectorAll("." + view + ".questions.subject");
         if (debug) console.log("index: question" + (section));
     }
     let length = parseInt(titles.length);
-    if (debug) console.log("header: " + length);
-    let list = ""
+    if (debug) console.log("header length: " + length + " current:" + section);
+    let title = titles[section-1].innerHTML;
+    let paragraph = "";
+    let list = "";
     try {
-        let next = paragraphs[section].nextElementSibling;
+        let next = [];
+        if (view == "learn") {
+            paragraph = paragraphs[section-1].innerHTML;
+            next = paragraphs[section-1].nextElementSibling;
+        } else {
+            paragraph = "";
+            next = document.querySelectorAll("." + view + " section.questions.active label span.subject");
+            console.log("answer count: "+next.length);
+        }
         let listitems = [];
         if (view == "learn") {
-            let listitems = next.querySelectorAll("." + view + " section li");
+            listitems = next.querySelectorAll("." + view + " section li");
         } else {
-
+            listitems = next;
         }
         listitems.forEach(item => list += item.innerHTML + "; ");
     } catch (err) {
         if (debug) console.log("no list");
     }
-    speech.text = removeTags(titles[section].innerHTML + ": " + paragraphs[section].innerHTML + " " + list).replace(/\s+/g, " ");
+    speech.text = removeTags(title + ": " + paragraph + " " + list).replace(/\s+/g, " ");
     if (debug) console.log("read text:" + speech.text);
     window.speechSynthesis.speak(speech);
 }
@@ -337,4 +348,13 @@ function clearAnswers(id) {
         try { document.querySelector(".q" + id + "-" + a + ".right").classList.remove("right"); } catch (err) { }
         try { document.querySelector(".q" + id + "-" + a + ".wrong").classList.remove("wrong"); } catch (err) { }
     }
+}
+
+const canvas = document.querySelector('#confetti');
+const jsConfetti = new JSConfetti();
+
+function celebrate() {
+    jsConfetti.addConfetti({
+        emojis: ['🌟', '⭐', '💥', '✨', '💫', '👏'],
+    }).then(() => jsConfetti.addConfetti())
 }
