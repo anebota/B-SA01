@@ -173,7 +173,7 @@ function showContent(index) {
         document.querySelector("#q" + parseInt(index)).classList.add("active");
         currentQuestion = parseInt(index);
         if (debug) console.log("current: question" + (currentQuestion));
-        if (index == 3) {celebrate()}
+        if (index == max) {celebrate()}
     }
 }
 
