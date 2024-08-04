@@ -8,7 +8,7 @@ let currentQuestion = 1;
 let prevLock = true;
 let nextLock = false;
 let max = 0;
-let debug = false;
+let debug = true;
 let defaultvoice = 2;
 var lastId;
 
@@ -129,11 +129,28 @@ function updateNav() {
     } else {
         document.querySelector("#prev").classList.remove("disabled");
     }
-    if (nextLock) {
-        document.querySelector("#next").classList.add("disabled");
+    if (view == "learn") {
+        if (nextLock) {
+            document.querySelector("#next").classList.add("disabled");
+        } else {
+            document.querySelector("#next").classList.remove("disabled");
+        }
     } else {
-        document.querySelector("#next").classList.remove("disabled");
+        console.log("next lock? " +nextLock + " next question? "+checkAnswerCorrect());
+        if (nextLock) {
+            document.querySelector("#next").classList.add("disabled");
+        } else {
+            if (checkAnswerCorrect()) {
+                document.querySelector("#next").classList.add("disabled");
+            } else {
+                document.querySelector("#next").classList.remove("disabled");
+            }
+        }
     }
+}
+
+function checkAnswerCorrect(){
+    return !document.querySelector("#q"+currentQuestion).classList.contains("right");
 }
 
 function showContent(index) {
@@ -219,15 +236,15 @@ function playSection(offset) {
         max = parseInt(document.querySelectorAll(".quiz section h3").length);
         section = currentQuestion;
         if (debug) console.log("index: question" + (section));
-    }    
-    let titles = document.querySelectorAll("."+view+" section h2");
-    let paragraphs = document.querySelectorAll("."+view+" section p");
+    }
+    let titles = document.querySelectorAll("." + view + " section h2");
+    let paragraphs = document.querySelectorAll("." + view + " section p");
     let length = parseInt(titles.length);
     if (debug) console.log("header: " + length);
     let list = ""
     try {
         let next = paragraphs[section].nextElementSibling;
-        let listitems = next.querySelectorAll("."+view+" section li");
+        let listitems = next.querySelectorAll("." + view + " section li");
         listitems.forEach(item => list += item.innerHTML + "; ");
     } catch (err) {
         if (debug) console.log("no list");
@@ -239,20 +256,20 @@ function playSection(offset) {
 
 document.querySelector("#learn").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    if (debug) console.log("tab: learn section:"+currentSection);
+    if (debug) console.log("tab: learn section:" + currentSection);
     view = "learn";
     updateTab(view)
     updateProcessBar(currentSection);
-    checkNav(currentSection);    
+    checkNav(currentSection);
 })
 
 document.querySelector("#quiz").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    if (debug) console.log("tab: quiz section:"+currentQuestion);
+    if (debug) console.log("tab: quiz section:" + currentQuestion);
     view = "quiz";
     updateTab(view)
     updateProcessBar(currentQuestion);
-    checkNav(currentQuestion);    
+    checkNav(currentQuestion);
 })
 
 function updateTab(view) {
@@ -262,45 +279,53 @@ function updateTab(view) {
         document.querySelector("#quiz").classList.add("active");
         document.querySelector("#learn").classList.remove("active");
         updateProcessBar(currentQuestion);
-        checkNav(currentQuestion);        
+        checkNav(currentQuestion);
     } else {
         document.querySelector(".quiz").classList.add("hide");
         document.querySelector(".learn").classList.remove("hide");
         document.querySelector("#learn").classList.add("active");
         document.querySelector("#quiz").classList.remove("active");
         updateProcessBar(currentSection);
-        checkNav(currentSection);        
+        checkNav(currentSection);
     }
 }
 
 document.querySelectorAll(".quizbutton").forEach(quizbutton => {
-    let id = quizbutton.id;
+    let id = quizbutton.id.slice(0, -1);
     //if (debug) console.log('question' + id);
     quizbutton.addEventListener("click", () => {
         for (let i = 1; i <= 4; i++) {
             let answer = document.querySelector("#" + id + "-" + i);
-            if (debug) console.log(id + ' answer' + i + ": " + answer.checked);
             if (debug) console.log("correct answer: " + answer.classList.contains("correct"));
             if ((answer.checked == true) && (answer.classList.contains("correct"))) {
                 document.querySelector("#quizhint").innerHTML = "Correct!";
                 document.querySelector("label." + id + "-" + i).classList.add("right");
+                document.querySelector("#" + id).classList.add("right");
             }
             if ((answer.checked == true) && (answer.classList.contains("incorrect"))) {
                 document.querySelector("#quizhint").innerHTML = "Incorrect!";
                 document.querySelector("label." + id + "-" + i).classList.add("wrong");
+                document.querySelector("#" + id).classList.remove("right");
             }
+            updateNav();
         }
     });
 })
 
-for (let q = 1; q <= 1; q++) {
+for (let q = 1; q <= 2; q++) {
     for (let a = 1; a <= 4; a++) {
         document.querySelector(".q" + q + "-" + a).addEventListener("click", () => {
-            if (debug) console.log("q" + q + "-" + a + "clicked");
-            try { document.querySelector(".q" + q + "-" + a + ".right").classList.remove("right"); } catch (err) { }
-            try { document.querySelector(".q" + q + "-" + a + ".wrong").classList.remove("wrong"); } catch (err) { }
+            if (debug) console.log("q" + q + "-" + a + " clicked");
+            clearAnswers(q);
             document.querySelector("#q" + q + "-" + a).setAttribute("checked", "checked");
         });
+    }
+}
+
+function clearAnswers(id) {
+    for (let a = 1; a <= 4; a++) {
+        try { document.querySelector(".q" + id + "-" + a + ".right").classList.remove("right"); } catch (err) { }
+        try { document.querySelector(".q" + id + "-" + a + ".wrong").classList.remove("wrong"); } catch (err) { }
     }
 }
 
