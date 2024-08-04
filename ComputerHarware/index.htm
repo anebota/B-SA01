@@ -29,9 +29,9 @@
         </ul>
       </div>
     </div>
-    <div class="row h-100 learn hide">
+    <div class="row h-100 learn">
       <div class="col-9">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="false" data-bs-ride="false">
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-interval="false" data-bs-ride="false">
           <div class="carousel-inner">
             <div id="slide1" class="carousel-item active" data-index="1">
               <img src="img/1.jpg" class="d-block w-100" alt="...">
@@ -211,7 +211,7 @@
         </div>
       </div>
     </div>
-    <div class="row h-100 quiz">
+    <div class="row h-100 quiz hide">
       <div class="col-9">
         <div id="quizcontent" class="overflow-auto" style="height: calc(100vh - 140px);">
           <section id="q1" class="questions active" data-index="1">
@@ -244,28 +244,24 @@
           </section>
 
           <section id="q2" class="questions" data-index="2">
-            <h3>2. What is the component that temporarily stores data for use by the CPU?</h3>
+            <h3>2. What is considered the "backbone" of the computer? It also connects the core components together.</h3>
 
             <input type="radio" name="q2a" class="answer q2 incorrect" id="q2-1">
             <input type="radio" name="q2a" class="answer q2 incorrect" id="q2-2">
-            <input type="radio" name="q2a" class="answer q2 correct" id="q2-3">
-            <input type="radio" name="q2a" class="answer q2 incorrect" id="q2-4">
+            <input type="radio" name="q2a" class="answer q2 incorrect" id="q2-3">
+            <input type="radio" name="q2a" class="answer q2 correct" id="q2-4">
 
             <label for="q2-1" class="box q2-1">
-              <div class="course"> <span class="circle"></span> <span class="subject"> The Storage (SSD or HDD) keeps
-                  data for temporary useage.</span> </div>
+              <div class="course"> <span class="circle"></span> <span class="subject"> The Central Processing Unit (CPU) is the backbone and most important component of the system.</span> </div>
             </label>
             <label for="q2-2" class="box q2-2">
-              <div class="course"> <span class="circle"></span> <span class="subject"> The Power Supply Unit (PSU)
-                  stores data persistently for the CPU. </span> </div>
+              <div class="course"> <span class="circle"></span> <span class="subject"> The Memory (RAM) acts as the device that feeds the CPU data, so it must be the backbone.</span> </div>
             </label>
             <label for="q2-3" class="box q2-3">
-              <div class="course"> <span class="circle"></span> <span class="subject"> The Memory (RAM) stores data
-                  temporarily for the CPU. </span> </div>
+              <div class="course"> <span class="circle"></span> <span class="subject"> The Computer Case holds all the components together and therefore is the backbone. </span> </div>
             </label>
             <label for="q2-4" class="box q2-4">
-              <div class="course"> <span class="circle"></span> <span class="subject"> The Central Processing Unit (CPU)
-                  stores all it's own data persistently. </span></div>
+              <div class="course"> <span class="circle"></span> <span class="subject"> The Motherboard is referred to as the backbone because it connects all the major components together. </span></div>
             </label>
             <div class="submit">
               <button type="button" class="btn btn-primary btn-md quizbutton" id="q2b" onclick="">Submit</button>
@@ -274,6 +270,8 @@
 
           <section id="q3" class="questions" data-index="3">
             <h3>Congratulations! Your Knowledge is 100%</h3>
+            <p>You can now proceed to the assessment for this course.  Upon sucessfully receiving a passing grade on the assessment you will obtain the badge!</p>
+            <p>Good luck! Keep learning and growing!</p>
           </section>
         </div>
       </div>

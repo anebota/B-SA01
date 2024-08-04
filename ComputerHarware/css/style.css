@@ -71,7 +71,14 @@ body {
     color: white !important;
     background-color: darkgray !important;
 }
-
+.carousel-item {
+    display: none;
+}
+.carousel-item.active {
+    display: block;
+    transition-duration: 150ms !important;
+    transition-delay: 0ms !important;
+}
 .learnsection {
     display: none;
 }

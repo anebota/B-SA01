@@ -2,7 +2,7 @@ let speech = new SpeechSynthesisUtterance();
 let voices = [];
 let voiceSelect = document.querySelector("#voices")
 let autoplay = false;
-let view = "quiz";
+let view = "learn";
 let currentSection = 1;
 let currentQuestion = 1;
 let prevLock = true;
@@ -73,8 +73,9 @@ document.querySelector("#prev").addEventListener("click", () => {
         index = currentSection - 1;
     } else {
         index = currentQuestion - 1;
+        document.querySelector("#quizhint").innerHTML = "";
     }
-    updateProcessBar(index - 1);
+    updateProcessBar(index);
     if (debug) console.log('#section' + parseInt(index + 1));
     scrollSmoothTo('section' + parseInt(index + 1));
     if (autoplay) {
@@ -91,6 +92,7 @@ document.querySelector("#next").addEventListener("click", () => {
         index = currentSection + 1;
     } else {
         index = currentQuestion + 1;
+        document.querySelector("#quizhint").innerHTML = "";
     }
     updateProcessBar(index);
     if (debug) console.log('#section' + parseInt(index));
@@ -113,6 +115,11 @@ function checkNav(index) {
     } else {
         nextLock = false;
     }
+    if (view == "learn") {
+        currentSection = index;
+    } else {
+        currentQuestion = index;
+    }    
     learningComplete(index);
     updateNav();
 }
@@ -155,6 +162,8 @@ function checkAnswerCorrect(){
 
 function showContent(index) {
     if (view == "learn") {
+        document.querySelector(".carousel-item.active").classList.remove("active");
+        document.querySelector("#slide" + parseInt(index)).classList.add("active");        
         document.querySelector(".learnsection.active").classList.remove("active");
         document.querySelector("#section" + parseInt(index)).classList.add("active");
         currentSection = parseInt(index);
@@ -169,7 +178,6 @@ function showContent(index) {
 
 function start() {
     let index = 0;
-    let max = 0;
     if (view == "learn") {
         index = currentSection;
         max = parseInt(document.querySelectorAll(".learn section h2").length);
@@ -179,18 +187,16 @@ function start() {
     }
     if (debug) console.log(view + " index: " + index + " max: " + max);
     checkNav(index);
-    //showContent(index);
+    updateProcessBar(index);
+    showContent(index);
 }
 
 function updateProcessBar(section) {
     let current = 0;
     if (view == "learn") {
-        if (debug) console.log("index: " + (section));
-        max = parseInt(document.querySelectorAll(".learn section h2").length);
         currentSection = section;
         current = currentSection;
     } else {
-        max = parseInt(document.querySelectorAll(".quiz section h3").length);
         currentQuestion = section;
         current = currentQuestion;
     }
@@ -228,16 +234,17 @@ function scrollSmoothTo(elementId) {
 
 function playSection(offset) {
     let section = 0;
+    let htag = "";
     if (view == "learn") {
-        max = parseInt(document.querySelectorAll(".learn section h2").length);
         section = currentSection;
+        htag = "h2";
         if (debug) console.log("index: section" + (section));
     } else {
-        max = parseInt(document.querySelectorAll(".quiz section h3").length);
         section = currentQuestion;
+        htag = "h3";
         if (debug) console.log("index: question" + (section));
     }
-    let titles = document.querySelectorAll("." + view + " section h2");
+    let titles = document.querySelectorAll("." + view + " section "+htag);
     let paragraphs = document.querySelectorAll("." + view + " section p");
     let length = parseInt(titles.length);
     if (debug) console.log("header: " + length);
@@ -278,16 +285,13 @@ function updateTab(view) {
         document.querySelector(".quiz").classList.remove("hide");
         document.querySelector("#quiz").classList.add("active");
         document.querySelector("#learn").classList.remove("active");
-        updateProcessBar(currentQuestion);
-        checkNav(currentQuestion);
     } else {
         document.querySelector(".quiz").classList.add("hide");
         document.querySelector(".learn").classList.remove("hide");
         document.querySelector("#learn").classList.add("active");
         document.querySelector("#quiz").classList.remove("active");
-        updateProcessBar(currentSection);
-        checkNav(currentSection);
     }
+    start();
 }
 
 document.querySelectorAll(".quizbutton").forEach(quizbutton => {
@@ -296,14 +300,14 @@ document.querySelectorAll(".quizbutton").forEach(quizbutton => {
     quizbutton.addEventListener("click", () => {
         for (let i = 1; i <= 4; i++) {
             let answer = document.querySelector("#" + id + "-" + i);
-            if (debug) console.log("correct answer: " + answer.classList.contains("correct"));
+            //if (debug) console.log("correct answer: " + answer.classList.contains("correct"));
             if ((answer.checked == true) && (answer.classList.contains("correct"))) {
-                document.querySelector("#quizhint").innerHTML = "Correct!";
+                document.querySelector("#quizhint").innerHTML = "<h4>Result:</h><br/><br/><p>That is the correct answer.</p><p>Please click on the next button in the navigation controls at the bottom left of your screen, to proceed.</p>";
                 document.querySelector("label." + id + "-" + i).classList.add("right");
                 document.querySelector("#" + id).classList.add("right");
             }
             if ((answer.checked == true) && (answer.classList.contains("incorrect"))) {
-                document.querySelector("#quizhint").innerHTML = "Incorrect!";
+                document.querySelector("#quizhint").innerHTML = "<h4>Result:</h><br/><br/><p>Unfortunately, that is not the correct answer.</p><p>Please click on the Learning Material tab on the top right of your screen, to review the material for better insights.</p>";
                 document.querySelector("label." + id + "-" + i).classList.add("wrong");
                 document.querySelector("#" + id).classList.remove("right");
             }
@@ -315,7 +319,7 @@ document.querySelectorAll(".quizbutton").forEach(quizbutton => {
 for (let q = 1; q <= 2; q++) {
     for (let a = 1; a <= 4; a++) {
         document.querySelector(".q" + q + "-" + a).addEventListener("click", () => {
-            if (debug) console.log("q" + q + "-" + a + " clicked");
+            //if (debug) console.log("q" + q + "-" + a + " clicked");
             clearAnswers(q);
             document.querySelector("#q" + q + "-" + a).setAttribute("checked", "checked");
         });
@@ -328,41 +332,3 @@ function clearAnswers(id) {
         try { document.querySelector(".q" + id + "-" + a + ".wrong").classList.remove("wrong"); } catch (err) { }
     }
 }
-
-
-/* removed scroll functionality
-document.querySelector("#content").addEventListener("scroll", () => {
-    // Get container scroll position
-    var fromTop = document.querySelector("#content").scrollTop+document.querySelector("#content").offsetTop;
-
-    //console.log("fromTop: "+fromTop);
-    // Get id of current scroll item 
-    //console.log(document.querySelectorAll("section"));
-    var cur;
-    document.querySelectorAll(".learn section").forEach(item => {
-        //console.log(item.id+": "+item.offsetTop);
-        if (item.offsetTop < fromTop)
-            cur = item;
-    });
-    //console.log(cur);
-    // Get the id of the current element
-    try {
-        var id = cur.id;
-    } catch (err) {
-        var id = "section1";
-    }
-
-    if (lastId !== id) {
-        lastId = id;
-        // Set/remove active class
-        slide = id.replace("section","slide");
-        index = parseInt(id.replace("section",""))-1;
-        if (debug) console.log("slide: "+slide);
-        document.querySelector(".carousel-item.active").classList.remove("active");
-        document.querySelector("#"+slide).classList.add("active");
-        updateProcessBar(index);
-        if (debug) console.log("id: " + id);
-        checkNav(index);
-    }
-});
-*/
