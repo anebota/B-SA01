@@ -97,7 +97,9 @@ body {
 .select {
     width: auto;
     padding: 5px;
+    margin-top: 5px;
     margin-left: 15px;
+    font-size: medium;
 }
 
 .select:hover {
