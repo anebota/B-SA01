@@ -11,11 +11,11 @@ let max = 0;
 let debug = true;
 let defaultvoice = 2;
 var lastId;
+let mysection = sessionStorage.getItem("section");
 
 /*
 let imported;
 
-//let mysection = sessionStorage.getItem("section");
 function fetchJSONData() {
     fetch("data/data.json")
         .then((res) => {
@@ -64,6 +64,7 @@ document.querySelector("#play").addEventListener("click", () => {
 
 document.querySelector("#stop").addEventListener("click", () => {
     window.speechSynthesis.cancel();
+    console.log(document.cookie);
 })
 
 document.querySelector("#prev").addEventListener("click", () => {
@@ -119,7 +120,7 @@ function checkNav(index) {
         currentSection = index;
     } else {
         currentQuestion = index;
-    }    
+    }
     learningComplete(index);
     updateNav();
 }
@@ -143,7 +144,7 @@ function updateNav() {
             document.querySelector("#next").classList.remove("disabled");
         }
     } else {
-        console.log("next lock? " +nextLock + " next question? "+checkAnswerCorrect());
+        console.log("next lock? " + nextLock + " next question? " + checkAnswerCorrect());
         if (nextLock) {
             document.querySelector("#next").classList.add("disabled");
         } else {
@@ -156,24 +157,26 @@ function updateNav() {
     }
 }
 
-function checkAnswerCorrect(){
-    return !document.querySelector("#q"+currentQuestion).classList.contains("right");
+function checkAnswerCorrect() {
+    return !document.querySelector("#q" + currentQuestion).classList.contains("right");
 }
 
 function showContent(index) {
     if (view == "learn") {
         document.querySelector(".carousel-item.active").classList.remove("active");
-        document.querySelector("#slide" + parseInt(index)).classList.add("active");        
+        document.querySelector("#slide" + parseInt(index)).classList.add("active");
         document.querySelector(".learnsection.active").classList.remove("active");
         document.querySelector("#section" + parseInt(index)).classList.add("active");
         currentSection = parseInt(index);
+        setCookie("currentSection", index);
         if (debug) console.log("current: section" + (currentSection));
     } else {
         document.querySelector(".questions.active").classList.remove("active");
         document.querySelector("#q" + parseInt(index)).classList.add("active");
         currentQuestion = parseInt(index);
+        setCookie("currentQuestion", index);
         if (debug) console.log("current: question" + (currentQuestion));
-        if (index == max) {celebrate()}
+        if (index == max) { celebrate() }
     }
 }
 
@@ -250,18 +253,18 @@ function playSection(offset) {
     }
     let length = parseInt(titles.length);
     if (debug) console.log("header length: " + length + " current:" + section);
-    let title = titles[section-1].innerHTML;
+    let title = titles[section - 1].innerHTML;
     let paragraph = "";
     let list = "";
     try {
         let next = [];
         if (view == "learn") {
-            paragraph = paragraphs[section-1].innerHTML;
-            next = paragraphs[section-1].nextElementSibling;
+            paragraph = paragraphs[section - 1].innerHTML;
+            next = paragraphs[section - 1].nextElementSibling;
         } else {
             paragraph = "";
             next = document.querySelectorAll("." + view + " section.questions.active label span.subject");
-            console.log("answer count: "+next.length);
+            console.log("answer count: " + next.length);
         }
         let listitems = [];
         if (view == "learn") {
@@ -357,4 +360,35 @@ function celebrate() {
     jsConfetti.addConfetti({
         emojis: ['🌟', '⭐', '💥', '✨', '💫', '👏'],
     }).then(() => jsConfetti.addConfetti())
+}
+
+function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secur; Domain=cloudheroesafrica.com;";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function checkCookie() {
+    let user = getCookie("username");
+    if (user != "") {
+        alert("Welcome again " + user);
+    } else {
+        user = prompt("Please enter your name:", "");
+        if (user != "" && user != null) {
+            setCookie("username", user);
+        }
+    }
 }
