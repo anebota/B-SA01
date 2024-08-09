@@ -9,7 +9,7 @@ let prevLock = true;
 let nextLock = false;
 let max = 0;
 let debug = true;
-let defaultvoice = 2;
+let defaultvoice = 0;
 var lastId;
 let mysection = sessionStorage.getItem("section");
 
@@ -248,7 +248,7 @@ function playSection(offset) {
     } else {
         section = currentQuestion;
         titles = document.querySelectorAll("." + view + " section h3");
-        //paragraphs = document.querySelectorAll("." + view + ".questions.subject");
+        paragraphs = document.querySelectorAll("." + view + " section p");
         if (debug) console.log("index: question" + (section));
     }
     let length = parseInt(titles.length);
@@ -262,7 +262,7 @@ function playSection(offset) {
             paragraph = paragraphs[section - 1].innerHTML;
             next = paragraphs[section - 1].nextElementSibling;
         } else {
-            paragraph = "";
+            if (section == max) { paragraph = paragraphs[0].innerHTML + paragraphs[1].innerHTML; }
             next = document.querySelectorAll("." + view + " section.questions.active label span.subject");
             console.log("answer count: " + next.length);
         }
@@ -336,7 +336,7 @@ document.querySelectorAll(".quizbutton").forEach(quizbutton => {
     });
 })
 
-for (let q = 1; q <= 2; q++) {
+for (let q = 1; q <= 5; q++) {
     for (let a = 1; a <= 4; a++) {
         document.querySelector(".q" + q + "-" + a).addEventListener("click", () => {
             //if (debug) console.log("q" + q + "-" + a + " clicked");
@@ -363,7 +363,7 @@ function celebrate() {
 }
 
 function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secur;";
+    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure;";
 }
 
 function getCookie(cname) {
