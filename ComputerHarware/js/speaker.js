@@ -363,7 +363,7 @@ function celebrate() {
 }
 
 function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secur; Domain=cloudheroesafrica.com;";
+    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secur;";
 }
 
 function getCookie(cname) {
