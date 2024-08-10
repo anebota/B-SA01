@@ -43,6 +43,7 @@ body {
 }
 
 .carousel-item img {
+    object-fit: scale-down;
     height: 75vh;
     width: 75vh;
 }

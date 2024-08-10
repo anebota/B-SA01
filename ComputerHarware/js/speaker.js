@@ -253,29 +253,29 @@ function scrollSmoothTo(elementId) {
 
 function playSection(offset) {
     let section = 0;
-    let titles = "";
+    let title = "";
     let paragraphs = "";
     if (view == "learn") {
         section = currentSection;
-        titles = document.querySelectorAll("." + view + " section h2");
-        paragraphs = document.querySelectorAll("." + view + " section p");
+        title = document.querySelector("." + view + " section.active h2");
+        paragraphs = document.querySelectorAll("." + view + " section.active p");
         if (debug) console.log("index: section" + (section));
     } else {
         section = currentQuestion;
-        titles = document.querySelectorAll("." + view + " section h3");
-        paragraphs = document.querySelectorAll("." + view + " section p");
+        title = document.querySelector("." + view + " section.active h3");
+        paragraphs = document.querySelectorAll("." + view + " section.active p");
         if (debug) console.log("index: question" + (section));
     }
     let length = parseInt(titles.length);
     if (debug) console.log("header length: " + length + " current:" + section);
-    let title = titles[section - 1].innerHTML;
+    let titletext = title.innerHTML;
     let paragraph = "";
     let list = "";
     try {
         let next = [];
         if (view == "learn") {
-            paragraph = paragraphs[section - 1].innerHTML;
-            next = paragraphs[section - 1].nextElementSibling;
+            paragraph = paragraph[0].innerHTML;
+            next = paragraph[0].nextElementSibling;
         } else {
             if (section == max) { paragraph = paragraphs[0].innerHTML + paragraphs[1].innerHTML; }
             next = document.querySelectorAll("." + view + " section.questions.active label span.subject");
@@ -291,7 +291,7 @@ function playSection(offset) {
     } catch (err) {
         if (debug) console.log("no list");
     }
-    speech.text = removeTags(title + ": " + paragraph + " " + list).replace(/\s+/g, " ");
+    speech.text = removeTags(titletext + ": " + paragraph + " " + list).replace(/\s+/g, " ");
     if (debug) console.log("read text:" + speech.text);
     window.speechSynthesis.speak(speech);
 }
