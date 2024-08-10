@@ -292,6 +292,10 @@ canvas#confetti {
     .nav-link {
         padding: 0.25rem;
     }
+    .carousel-item img {
+        height: 65vh;
+        width: 65vh;
+    }    
     .btn {
         padding: 0.5rem 0.6rem;
         font-size: 1.2vw;
