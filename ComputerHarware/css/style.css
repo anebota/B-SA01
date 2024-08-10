@@ -45,7 +45,6 @@ body {
 .carousel-item img {
     object-fit: scale-down;
     height: 85vh;
-    width: 85vh;
 }
 
 .h-100 {
@@ -294,8 +293,7 @@ canvas#confetti {
         padding: 0.25rem;
     }
     .carousel-item img {
-        height: 65vh;
-        width: 65vh;
+        height: 75vh;
     }
     #quizcontent {
         height: 65vh;
