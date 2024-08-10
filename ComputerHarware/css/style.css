@@ -266,6 +266,10 @@ canvas#confetti {
 
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 1363px) {
+    .full-screen {
+        margin-top: 10px;
+        position: relative;
+    }    
     section {
         margin: 0;
     }
