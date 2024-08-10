@@ -266,16 +266,14 @@ function playSection(offset) {
         paragraphs = document.querySelectorAll("." + view + " section.active p");
         if (debug) console.log("index: question" + (section));
     }
-    let length = parseInt(titles.length);
-    if (debug) console.log("header length: " + length + " current:" + section);
     let titletext = title.innerHTML;
     let paragraph = "";
     let list = "";
     try {
         let next = [];
         if (view == "learn") {
-            paragraph = paragraph[0].innerHTML;
-            next = paragraph[0].nextElementSibling;
+            paragraph = paragraphs[0].innerHTML;
+            next = paragraphs[0].nextElementSibling;
         } else {
             if (section == max) { paragraph = paragraphs[0].innerHTML + paragraphs[1].innerHTML; }
             next = document.querySelectorAll("." + view + " section.questions.active label span.subject");

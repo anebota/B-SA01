@@ -44,8 +44,8 @@ body {
 
 .carousel-item img {
     object-fit: scale-down;
-    height: 75vh;
-    width: 75vh;
+    height: 85vh;
+    width: 85vh;
 }
 
 .h-100 {
@@ -114,6 +114,7 @@ body {
 .progress {
     height: 40px;
     padding: 0;
+    width: 95%;
 }
 
 .progress-bar {
@@ -134,7 +135,7 @@ body {
 }
 
 #quizcontent {
-    height: 75vh;
+    height: 85vh;
 }
 
 .quiz {
@@ -295,6 +296,9 @@ canvas#confetti {
     .carousel-item img {
         height: 65vh;
         width: 65vh;
+    }
+    #quizcontent {
+        height: 65vh;
     }    
     .btn {
         padding: 0.5rem 0.6rem;
