@@ -4,7 +4,8 @@ body {
 }
 
 section {
-    margin-top: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
 }
 
 h1 {
@@ -38,7 +39,7 @@ body {
 }
 
 .full-screen {
-    margin-top: 10px;
+    padding: 10px;
     position: fixed;
 }
 
@@ -113,7 +114,6 @@ body {
 .progress {
     height: 40px;
     padding: 0;
-    width: 95%;
 }
 
 .progress-bar {
@@ -293,10 +293,10 @@ canvas#confetti {
         padding: 0.25rem;
     }
     .carousel-item img {
-        height: 70vh;
+        height: 75vh;
     }
     #quizcontent {
-        height: 70vh;
+        height: 75vh;
     }    
     .btn {
         padding: 0.5rem 0.6rem;
