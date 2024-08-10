@@ -105,6 +105,21 @@ document.querySelector("#next").addEventListener("click", () => {
     showContent(index);
 })
 
+document.querySelector("#fullscreen").addEventListener("click", () => {
+    if (document.fullscreenElement) {
+        document.exitFullscreen()
+    } else {
+        let player = document.querySelector('body');
+        if (player.requestFullscreen) {
+            player.requestFullscreen();
+        } else if (player.webkitRequestFullscreen) { /* Safari */
+            player.webkitRequestFullscreen();
+        } else if (player.msRequestFullscreen) { /* IE11 */
+            player.msRequestFullscreen();
+        }
+    }
+})
+
 function checkNav(index) {
     if (index == 1) {
         prevLock = true;
