@@ -292,9 +292,6 @@ canvas#confetti {
     .nav-link {
         padding: 0.25rem;
     }
-    .carousel-item img {
-        height: 75vh;
-    }
     #quizcontent {
         height: 65vh;
     }    
