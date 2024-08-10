@@ -209,8 +209,8 @@ function updateProcessBar(section) {
     if (debug) console.log("max: " + (max) + " Interval: " + interval);
     if (debug) console.log("progress: " + progress + "%");
     document.querySelector("#progress").innerHTML = progress + "%";
-    if (section == 0) {
-        document.querySelector("#progress").style = "width: 5%;";
+    if (section == 1) {
+        document.querySelector("#progress").style = "width: 10%;";
     } else {
         document.querySelector("#progress").style = "width: " + progress + "%;";
     }

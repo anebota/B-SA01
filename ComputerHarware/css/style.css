@@ -9,7 +9,6 @@ section {
 
 h1 {
     font-size: 24px;
-    margin-bottom: 20px;
 }
 
 h2 {
@@ -41,6 +40,12 @@ body {
 
 .full-screen {
     margin-top: 10px;
+    position: fixed;
+}
+
+.carousel-item img {
+    height: 75vh;
+    width: 75vh;
 }
 
 .h-100 {
@@ -126,6 +131,10 @@ body {
 
 .learn.hide {
     display: none;
+}
+
+#quizcontent {
+    height: 75vh;
 }
 
 .quiz {
@@ -254,3 +263,59 @@ canvas#confetti {
     z-index: 1000;
     pointer-events: none;
 }
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 1363px) {
+    section {
+        margin: 0;
+    }
+    h1 {
+        font-size:2.5vw;
+    }
+    h2 {
+        font-size:2vw;
+    }
+    h3 {
+        margin-top: 10px;
+        font-size:1.8vw;
+    }   
+    body {
+        font-size:1.1vw;
+    }
+    p {
+        font-size:1.25vw;
+    }       
+    .nav-link {
+        padding: 0.25rem;
+    }
+    .btn {
+        padding: 0.5rem 0.6rem;
+        font-size: 1.2vw;
+        height: 35px;
+        min-width: 35px;
+    }
+    .select {
+        font-size: 1.3vw;
+    }
+    .progress {
+        font-size: 1.3vw;
+        height: 30px;
+    }
+    label.box {
+        margin-top: 6px;
+        padding: 2px 3px;
+        border-radius: 5px;
+        cursor: pointer;
+        border: 1px solid #ddd;
+    }
+    label.box .circle {
+        height: 15px;
+        width: 15px;
+    }    
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {}
+
+/* X-Large devices (large desktops, less than 1400px) */
+@media (max-width: 1399.98px) {}
