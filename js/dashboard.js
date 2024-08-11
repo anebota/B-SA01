@@ -23,9 +23,21 @@ function startUp() {
 
 startUp();
 
-document.querySelectorAll(".start-course").forEach(quizbutton => {
-    let id = quizbutton.id;
-    quizbutton.addEventListener("click", () => {
-    window.location.href = id+"/index.htm";
+document.querySelectorAll(".start-course").forEach(button => {
+    let id = button.id;
+    button.addEventListener("click", () => {
+        window.location.href = id + "/index.htm";
+        setCookie(id, "enrolled");
     })
+    let cid = getCookie(id);
+    console.log(cid);
+    if(cid == "enrolled") {
+        button.innerHTML = "Enrolled";
+        button.classList.remove("btn-primary");
+        button.classList.add("btn-success");
+    } else {
+        button.innerHTML = "Not Available";
+        button.classList.remove("btn-primary");
+        button.classList.add("btn-secondary");        
+    }    
 })
