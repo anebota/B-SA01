@@ -9,8 +9,6 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="css/core.min.css">
-    <link rel="stylesheet" href="css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -24,29 +22,29 @@
               <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
   
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Student Registration</p>
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" id="title">Registration</p>
   
                   <form class="mx-1 mx-md-4">
   
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="text" id="name" class="form-control" />
-                        <label class="form-label" for="name">Your Name</label>
+                      <div class="form-floating mb-1 flex-fill">
+                        <input type="email" class="form-control" id="name" placeholder="">
+                        <label for="name">Your Name</label>
                       </div>
                     </div>
   
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                        <input type="email" id="email" class="form-control" />
-                        <label class="form-label" for="email">Your Email</label>
+                      <div class="form-floating mb-1 flex-fill">
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        <label for="email">Email address</label>
                       </div>
                     </div>
   
                     <div class="form-check d-flex justify-content-center mb-5">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                      <label class="form-check-label" for="form2Example3">
+                      <input class="form-check-input me-2" type="checkbox" value="" id="african" />
+                      <label class="form-check-label" for="african">
                         I reside or originate from <b>Africa</b>
                       </label>
                     </div>

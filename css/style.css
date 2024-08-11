@@ -1,0 +1,12 @@
+.dashboard {
+    max-width: 95% !important;
+}
+
+.card-text {
+    min-height: 100px;
+    font-size: 0.9rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
