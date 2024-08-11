@@ -11,8 +11,6 @@ let max = 0;
 let debug = true;
 let defaultvoice = 0;
 var lastId;
-let mysection = sessionStorage.getItem("section");
-let courseName = "ComputerHardware";
 let courseCode = "B-CH01";
 
 /*
@@ -44,6 +42,7 @@ if (debug) console.log("autoplay: " + autoplay);
 start();
 
 document.querySelector("#home").addEventListener("click", () => {
+    window.speechSynthesis.cancel();
     window.location.href = "../dashboard.htm";
 })
 
@@ -56,6 +55,8 @@ window.speechSynthesis.onvoiceschanged = () => {
 
 voiceSelect.addEventListener("change", () => {
     speech.voice = voices[voiceSelect.value];
+    if (debug) console.log("voice: "+voiceSelect.value);
+    setCookie("voice", voiceSelect.value, "");
 })
 
 document.querySelector("#auto").addEventListener("change", () => {
@@ -147,9 +148,12 @@ function checkNav(index) {
 }
 
 function learningComplete(index) {
+    lock = getCookieVal("QLock","true");
     if (index == max && view == "learn") {
         document.querySelector("#quiz").classList.remove("disabled");
+        setCookie("QLock", "false", courseCode);
     }
+    if(lock == "false") { document.querySelector("#quiz").classList.remove("disabled"); }
 }
 
 function updateNav() {
@@ -204,8 +208,25 @@ function showContent(index) {
     }
 }
 
+function getCookieVal(input, def, type = "s"){
+    cookie = getCookie(input);
+    if(cookie == "" ) {
+        return def;
+    } else {
+        if(type == "s") {
+            return cookie;
+        } else {
+            return parseInt(cookie);
+        }
+    }
+}
+
 function start() {
     let index = 0;
+    defaultvoice = getCookieVal("voice",0,"i");
+    view = getCookieVal("view","learn");
+    currentSection = getCookieVal("L",1,"i");
+    currentQuestion = getCookieVal("Q",1,"i");
     if (view == "learn") {
         index = currentSection;
         max = parseInt(document.querySelectorAll(".learn section h2").length);
@@ -214,6 +235,7 @@ function start() {
         max = parseInt(document.querySelectorAll(".quiz section h3").length);
     }
     if (debug) console.log(view + " index: " + index + " max: " + max);
+    updateTab(view);
     checkNav(index);
     updateProcessBar(index);
     showContent(index);    
@@ -310,6 +332,9 @@ document.querySelector("#learn").addEventListener("click", () => {
     updateTab(view)
     updateProcessBar(currentSection);
     checkNav(currentSection);
+    showContent(currentSection);
+    updateProcessBar(currentSection);
+    setCookie("view","learn",courseCode);
 })
 
 document.querySelector("#quiz").addEventListener("click", () => {
@@ -319,6 +344,9 @@ document.querySelector("#quiz").addEventListener("click", () => {
     updateTab(view)
     updateProcessBar(currentQuestion);
     checkNav(currentQuestion);
+    showContent(currentQuestion);
+    updateProcessBar(currentQuestion);
+    setCookie("view","quiz",courseCode);
 })
 
 function updateTab(view) {
@@ -327,13 +355,13 @@ function updateTab(view) {
         document.querySelector(".quiz").classList.remove("hide");
         document.querySelector("#quiz").classList.add("active");
         document.querySelector("#learn").classList.remove("active");
+        document.querySelector("#quiz").classList.remove("disabled");
     } else {
         document.querySelector(".quiz").classList.add("hide");
         document.querySelector(".learn").classList.remove("hide");
         document.querySelector("#learn").classList.add("active");
         document.querySelector("#quiz").classList.remove("active");
     }
-    start();
 }
 
 document.querySelectorAll(".quizbutton").forEach(quizbutton => {
