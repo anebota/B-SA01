@@ -381,7 +381,7 @@ function celebrate() {
 }
 
 function setCookie(cname, cvalue) {
-    //document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; 1 Jan 2050 12:00:00 UTC; path=/";
+    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; 1 Jan 2030 12:00:00 UTC;";
 }
 
 function getCookie(cname) {
@@ -397,16 +397,4 @@ function getCookie(cname) {
         }
     }
     return "";
-}
-
-function checkCookie() {
-    let user = getCookie("username");
-    if (user != "") {
-        alert("Welcome again " + user);
-    } else {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null) {
-            setCookie("username", user);
-        }
-    }
 }
