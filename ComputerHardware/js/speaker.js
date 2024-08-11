@@ -195,7 +195,7 @@ function showContent(index) {
         if (debug) console.log("current: question" + (currentQuestion));
         if (index == max) { 
             celebrate(); 
-            setCookie(courseName, "completed");
+            setCookie(courseCode, "completed");
         }
     }
 }
