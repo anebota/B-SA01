@@ -12,6 +12,8 @@ let debug = true;
 let defaultvoice = 0;
 var lastId;
 let mysection = sessionStorage.getItem("section");
+let courseName = "ComputerHardware";
+let courseCode = "B-CH01";
 
 /*
 let imported;
@@ -183,15 +185,18 @@ function showContent(index) {
         document.querySelector(".learnsection.active").classList.remove("active");
         document.querySelector("#section" + parseInt(index)).classList.add("active");
         currentSection = parseInt(index);
-        setCookie("currentSection", index);
+        setCookie(courseCode+"-S", index);
         if (debug) console.log("current: section" + (currentSection));
     } else {
         document.querySelector(".questions.active").classList.remove("active");
         document.querySelector("#q" + parseInt(index)).classList.add("active");
         currentQuestion = parseInt(index);
-        setCookie("currentQuestion", index);
+        setCookie(courseCode+"-Q", index);
         if (debug) console.log("current: question" + (currentQuestion));
-        if (index == max) { celebrate() }
+        if (index == max) { 
+            celebrate(); 
+            setCookie(courseName, "completed");
+        }
     }
 }
 
@@ -207,7 +212,7 @@ function start() {
     if (debug) console.log(view + " index: " + index + " max: " + max);
     checkNav(index);
     updateProcessBar(index);
-    showContent(index);
+    showContent(index);    
 }
 
 function updateProcessBar(section) {
@@ -376,7 +381,7 @@ function celebrate() {
 }
 
 function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure;";
+    //document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; 1 Jan 2050 12:00:00 UTC; path=/";
 }
 
 function getCookie(cname) {
