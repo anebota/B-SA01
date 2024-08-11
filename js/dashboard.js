@@ -23,6 +23,9 @@ function startUp() {
 
 startUp();
 
-document.querySelector("#B-CH01").addEventListener("click", () => {
-    window.location.href = "ComputerHardware/index.htm";
+document.querySelectorAll(".start-course").forEach(quizbutton => {
+    let id = quizbutton.id;
+    quizbutton.addEventListener("click", () => {
+    window.location.href = id+"/index.htm";
+    })
 })

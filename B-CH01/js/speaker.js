@@ -43,6 +43,10 @@ if (debug) console.log("autoplay: " + autoplay);
 
 start();
 
+document.querySelector("#home").addEventListener("click", () => {
+    window.location.href = "../dashboard.htm";
+})
+
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
     voices.forEach((voice, i) => (voiceSelect.options[i] = new Option(voice.name, i)));
