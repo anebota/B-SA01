@@ -1,5 +1,5 @@
 function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; 1 Jan 2030 12:00:00 UTC;";
+    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; expires=1 Jan 2030 12:00:00 UTC;";
 }
 
 function getCookie(cname) {
