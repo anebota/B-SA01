@@ -35,6 +35,8 @@ document.querySelectorAll(".start-course").forEach(button => {
         button.innerHTML = "Enrolled";
         button.classList.remove("btn-primary");
         button.classList.add("btn-success");
+    } else if (id == "B-CH01") {
+        button.innerHTML = "Start Learning";
     } else {
         button.innerHTML = "Not Available";
         button.classList.remove("btn-primary");

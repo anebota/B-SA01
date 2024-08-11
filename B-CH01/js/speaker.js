@@ -189,17 +189,17 @@ function showContent(index) {
         document.querySelector(".learnsection.active").classList.remove("active");
         document.querySelector("#section" + parseInt(index)).classList.add("active");
         currentSection = parseInt(index);
-        setCookie(courseCode+"-S", index);
+        setCookie("L", index, courseCode);
         if (debug) console.log("current: section" + (currentSection));
     } else {
         document.querySelector(".questions.active").classList.remove("active");
         document.querySelector("#q" + parseInt(index)).classList.add("active");
         currentQuestion = parseInt(index);
-        setCookie(courseCode+"-Q", index);
+        setCookie("Q", index, courseCode);
         if (debug) console.log("current: question" + (currentQuestion));
         if (index == max) { 
             celebrate(); 
-            setCookie(courseCode, "completed");
+            setCookie(courseCode, "completed", "");
         }
     }
 }
@@ -384,8 +384,8 @@ function celebrate() {
     }).then(() => jsConfetti.addConfetti())
 }
 
-function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; expires=1 Jan 2030 12:00:00 UTC;";
+function setCookie(cname, cvalue, path) {
+    document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; expires=1 Jan 2030 12:00:00 UTC; path=/"+path+";";
 }
 
 function getCookie(cname) {
