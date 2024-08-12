@@ -199,7 +199,6 @@ function showContent(index) {
         document.querySelector(".questions.active").classList.remove("active");
         document.querySelector("#q" + parseInt(index)).classList.add("active");
         currentQuestion = parseInt(index);
-        setCookie("Q", index, courseCode);
         if (debug) console.log("current: question" + (currentQuestion));
         if (index == max) { 
             celebrate(); 
@@ -226,7 +225,7 @@ function start() {
     defaultvoice = getCookieVal("voice",0,"i");
     view = getCookieVal("view","learn");
     currentSection = getCookieVal("L",1,"i");
-    currentQuestion = getCookieVal("Q",1,"i");
+    currentQuestion = 1;
     if (view == "learn") {
         index = currentSection;
         max = parseInt(document.querySelectorAll(".learn section h2").length);
@@ -246,9 +245,11 @@ function updateProcessBar(section) {
     if (view == "learn") {
         currentSection = section;
         current = currentSection;
+        max = parseInt(document.querySelectorAll(".learn section h2").length);
     } else {
         currentQuestion = section;
         current = currentQuestion;
+        max = parseInt(document.querySelectorAll(".quiz section h3").length);
     }
     let interval = 100 / max;
     let progress = Math.ceil((interval) * (current));
