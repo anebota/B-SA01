@@ -36,6 +36,7 @@ body {
     height: 100%;
     width: 100%;
     background-color: #fff;
+    margin: 0 !important;
 }
 
 .full-screen {
@@ -45,7 +46,7 @@ body {
 
 .carousel-item img {
     object-fit: scale-down;
-    height: 85vh;
+    height: 85dvh;
 }
 
 .h-100 {
@@ -134,7 +135,7 @@ body {
 }
 
 #quizcontent {
-    height: 85vh;
+    height: 85dvh;
 }
 
 .quiz {
@@ -293,10 +294,10 @@ canvas#confetti {
         padding: 0.25rem;
     }
     .carousel-item img {
-        height: 75vh;
+        height: 75dvh;
     }
     #quizcontent {
-        height: 75vh;
+        height: 75dvh;
     }    
     .btn {
         padding: 0.5rem 0.6rem;
