@@ -285,45 +285,18 @@ function scrollSmoothTo(elementId) {
 
 function playSection(offset) {
     let section = 0;
-    let title = "";
-    let paragraphs = "";
-    if (view == "learn") {
-        section = currentSection;
-        title = document.querySelector("." + view + " section.active h2");
-        paragraphs = document.querySelectorAll("." + view + " section.active p");
-        if (debug) console.log("index: section" + (section));
-    } else {
-        section = currentQuestion;
-        title = document.querySelector("." + view + " section.active h3");
-        paragraphs = document.querySelectorAll("." + view + " section.active p");
-        if (debug) console.log("index: question" + (section));
-    }
-    let titletext = title.innerHTML;
-    let paragraph = "";
-    let list = "";
-    try {
-        let next = [];
-        if (view == "learn") {
-            paragraph = paragraphs[0].innerHTML;
-            next = paragraphs[0].nextElementSibling;
-        } else {
-            if (section == max) { paragraph = paragraphs[0].innerHTML + paragraphs[1].innerHTML; }
-            next = document.querySelectorAll("." + view + " section.questions.active label span.subject");
-            console.log("answer count: " + next.length);
-        }
-        let listitems = [];
-        if (view == "learn") {
-            listitems = next.querySelectorAll("." + view + " section li");
-        } else {
-            listitems = next;
-        }
-        listitems.forEach(item => list += item.innerHTML + "; ");
-    } catch (err) {
-        if (debug) console.log("no list");
-    }
-    speech.text = removeTags(titletext + ": " + paragraph + " " + list).replace(/\s+/g, " ");
+    let content = "";
+    content = document.querySelector("." + view + " section.active").innerHTML; 
+    speech.text = removeTags(content).replace(/\s+/g, " ");
+    if(view == "quiz" && (lastword(speech.text) == "Submit")) {speech.text = speech.text.substring(0, speech.text.lastIndexOf(" "))}
     if (debug) console.log("read text:" + speech.text);
     window.speechSynthesis.speak(speech);
+}
+
+function lastword(words) {
+    var n = words.split(" ");
+    return n[n.length - 1];
+
 }
 
 document.querySelector("#learn").addEventListener("click", () => {

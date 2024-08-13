@@ -29,6 +29,16 @@ p {
 
 ul {
     margin-bottom: 5px;
+    padding-left: 20px;
+}
+
+ul.no-bullets {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul.no-bullets li {
+    padding-bottom: 0.9em;
 }
 
 html,
