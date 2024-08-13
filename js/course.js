@@ -11,8 +11,14 @@ let max = 0;
 let debug = true;
 let defaultvoice = 0;
 var lastId;
-let courseCode = "B-CH01";
+let courseCode = getCourseCode();
 
+function getCourseCode(){
+    let temp = window.location.href.split("/");
+    return temp[temp.length-2];    
+}
+
+console.log(getCourseCode());
 /*
 let imported;
 
@@ -222,6 +228,7 @@ function getCookieVal(input, def, type = "s"){
 
 function start() {
     let index = 0;
+    window.speechSynthesis.cancel();
     defaultvoice = getCookieVal("voice",0,"i");
     view = getCookieVal("view","learn");
     currentSection = getCookieVal("L",1,"i");
@@ -268,12 +275,23 @@ function removeTags(str) {
         return false;
     else
         str = str.toString();
-
+    str = str.replaceAll('</li>', '.');
     // Regular expression to identify HTML tags in
     // the input string. Replacing the identified
     // HTML tag with a null string.
     return str.replace(/(<([^>]+)>)/ig, '').trim();
 }
+
+document.querySelectorAll('ul.no-bullets li').forEach( element => { 
+    let prefix = element.innerHTML.split('.')[0];
+    element.innerHTML = element.innerHTML.replace(prefix, `<b>` + prefix + `</b>`)
+})
+
+document.querySelectorAll('ul li').forEach( element => { 
+    let prefix = element.innerHTML.split(':')[0];
+    //console.log("indexOf ':'"+ element.innerHTML.indexOf(':') + " no-bullets:"+(!element.classList.contains("no-bullets")))
+    if(element.innerHTML.indexOf(':') && (!element.parentElement.classList.contains("no-bullets"))) {element.innerHTML = element.innerHTML.replace(prefix, `<b>` + prefix + `</b>`)}
+})
 
 function scrollSmoothTo(elementId) {
     var element = document.getElementById(elementId);
