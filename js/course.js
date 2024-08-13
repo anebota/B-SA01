@@ -284,13 +284,16 @@ function removeTags(str) {
 
 document.querySelectorAll('ul.no-bullets li').forEach( element => { 
     let prefix = element.innerHTML.split('.')[0];
-    element.innerHTML = element.innerHTML.replace(prefix, `<b>` + prefix + `</b>`)
+    if(element.innerHTML.indexOf('.') > 0) { element.innerHTML = element.innerHTML.replace(prefix+".", `<b>` + prefix+"." + `</b>`) }
 })
 
 document.querySelectorAll('ul li').forEach( element => { 
     let prefix = element.innerHTML.split(':')[0];
     //console.log("indexOf ':'"+ element.innerHTML.indexOf(':') + " no-bullets:"+(!element.classList.contains("no-bullets")))
-    if(element.innerHTML.indexOf(':') && (!element.parentElement.classList.contains("no-bullets"))) {element.innerHTML = element.innerHTML.replace(prefix, `<b>` + prefix + `</b>`)}
+    if (!element.parentElement.classList.contains("no-bullets")) {
+        //console.log(element.innerHTML+" indexOf ':'"+ element.innerHTML.indexOf(':') + " no-bullets:"+(element.classList.contains("no-bullets")))
+        if(element.innerHTML.indexOf(':') > 0) {element.innerHTML = element.innerHTML.replace(prefix+":", `<b>` + prefix+":" + `</b>`)}
+    } 
 })
 
 function scrollSmoothTo(elementId) {
