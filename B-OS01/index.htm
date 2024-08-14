@@ -78,15 +78,6 @@
             <div id="slide13" class="carousel-item" data-index="13">
               <img src="img/13.jpg" class="d-block w-100" alt="...">
             </div>
-            <div id="slide14" class="carousel-item" data-index="14">
-              <img src="img/14.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div id="slide15" class="carousel-item" data-index="15">
-              <img src="img/15.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div id="slide16" class="carousel-item" data-index="16">
-              <img src="img/16.jpg" class="d-block w-100" alt="...">
-            </div>
           </div>
         </div>
       </div>
@@ -109,165 +100,193 @@
               <b>Objective:</b> By the end of this session, you will be able to understand the following:
             </p>
             <ul>
-            <li>What is an Operating System (OS)?</li>
-            <li>Types of Operating Systems</li>
-            <li>Basic OS Components</li>
-            <li>Functions of the OS</li>
-            <li>User Interfaces</li>
-            <li>File Management</li>
-            <li>OS vs Software</li>
-            <li>Troubleshooting Techniques</li>
-            <li>Computer Security</li>
+              <li>What is an Operating System (OS)?</li>
+              <li>Types of Operating Systems</li>
+              <li>The Basic Components of an OS</li>
+              <li>Functions of the OS</li>
+              <li>User Interfaces</li>
+              <li>File Management</li>
+              <li>OS vs Software</li>
+              <li>Troubleshooting Techniques</li>
+              <li>Computer Security</li>
             </ul>
-           <p>Author and Designer: Kris Fernando</p>
+            <p>Author and Designer: Kris Fernando</p>
             </p>
           </section>
 
           <section id="section3" class="learnsection">
             <h2>What is an Operating System (OS)?</h2>
             <p>An operating system (OS) is the software that manages a computer's hardware and software resources and
-              provides common services for computer programs.<br /><br />Think of an operating system as the manager of
-              a computer. They oversees the hardware components (like the processor, memory, and storage) and coordinates
-              their activities to run software applications smoothly. Essentially, it's the OS that makes the software
-              work with the hardware of the computer system.</p>
+              provides common services for computer programs.</p>
+            <p>Think of an operating system as the manager of a computer. They oversees the hardware components (like
+              the processor, memory, and storage) and coordinates their activities to run software applications
+              smoothly. Essentially, it's the OS that makes the software work with the hardware of the computer system.
+            </p>
           </section>
 
           <section id="section4" class="learnsection">
             <h2>Types of Operating Systems</h2>
-            <p>Operating systems come in various types, each designed for specific purposes. Let's explore a few common ones:<br/><br/>
-              <b>Desktop Operating Systems</b><br/>
-              These are designed for personal computers and laptops. They provide a user-friendly interface and support a wide range of applications.<br/>
-              Examples include: Windows, macOS, and Linux<br/><br/>
-              <b>Mobile Operating Systems</b><br/>
-              Optimized for smartphones and tablets, these OSs prioritize touchscreens and portability.<br/>
-              Examples include: Android and iOS<br/><br/>
-              <b>Server Operating Systems</b><br/>
-              Designed to handle multiple users and applications simultaneously, server OSs are robust and efficient.<br/>
-              Examples include: Windows Server and Linux</p>
+            <p>Operating systems come in various types, each designed for specific purposes. Let's explore a few common
+              ones:</p>
+            <b>Desktop Operating Systems</b></br>
+            <p>These are designed for personal computers and laptops. They provide a user-friendly interface and support
+              a wide range of applications. Examples include:</p>
+            <ul>
+              <li>Windows: The most widely used desktop OS, known for its user-friendly interface.</li>
+              <li>macOS: Developed by Apple, known for its sleek design and integration with Apple devices.</li>
+              <li>Linux: Open-source OS, offering flexibility and customization options.</li>
+            </ul><br />
+            <b>Mobile Operating Systems</b></br>
+            <p>Optimized for smartphones and tablets, these OSs prioritize touchscreens and portability. Examples
+              include:</p>
+            <ul>
+              <li>Android: The most popular mobile OS, known for its openness and customization.</li>
+              <li>iOS: Developed by Apple, offering a seamless user experience across Apple devices.</li>
+            </ul><br />
+            <b>Server Operating Systems</b></br>
+            <p>Designed to handle multiple users and applications simultaneously, server OSs are robust and efficient.
+              Examples include:</p>
+            <ul>
+              <li>Windows Server: For businesses, offering tools for network management and data storage.</li>
+              <li>Linux (various distributions): Popular for web servers, due to its stability and security.</li>
+            </ul><br />
+            <b>Embedded Operating Systems</b><br />
+            <p>These are specialized OSs designed for devices with limited resources, such as smart TVs, microwaves,
+              and cars. They focus on specific tasks and efficiency.</p>
+            <p>It's important to note that this is just a basic overview. There are many other types of OSs, each
+              with its own strengths and weaknesses.</p>
           </section>
 
           <section id="section5" class="learnsection">
-            <h2>Basic Components of an Operating System</h2>
-            <p>An operating system is composed of several key components that work together to manage a computer's resources and provide services to applications. Let's explore some of the essential ones:<br/><br/>
-
-              <b>Kernel</b><br/>
-              Often referred to as the core of the OS, the kernel is the most crucial component. It directly interacts with the hardware and manages fundamental operations like: Memory management, Process management, File system management, Device management, and Network communication.<br/><br/>
-              <b>User Interface</b><br/>
-              This is the part of the OS that allows users to interact with the computer. There are two main types: <br/> 
-              • Graphical User Interface (GUI): Uses icons, windows, and menus for visual interaction. <br/>
-              • Command-Line Interface (CLI): Requires users to type commands to interact with the system.<br/><br/> 
-              <b>File System</b><br/>
-              The file system is responsible for organizing and storing data on storage devices. It manages files, directories, and their attributes. <br/><br/>
-              <b>Device Drivers</b><br/>
-              These are software components that enable the OS to communicate with hardware devices like keyboards, mice, printers, and hard drives.<br/><br/>
-              <b>System Utilities</b><br/>
-              These are programs that perform specific tasks related to system maintenance and optimization, such as: Disk defragmentation, Backup utilities, Antivirus software, and System monitoring tools.</p>
+            <h2>The Basic Components of an Operating System</h2>
+            <p>An operating system is composed of several key components that work together to manage a computer's
+              resources and provide services to applications. Let's explore some of the essential ones:</p>
+            <b>Kernel</b><br />
+            <p>Often referred to as the core of the OS, the kernel is the most crucial component. It directly interacts
+              with the hardware and manages fundamental operations like: Memory management, Process management, File
+              system management, Device management, and Network communication.</p>
+            <b>User Interface</b><br />
+            <p>This is the part of the OS that allows users to interact with the computer. There are two main types:</p>
+            <ul>
+              <li>User Interface (GUI): Uses icons, windows, and menus for visual interaction. </li>
+              <li>Command-Line Interface (CLI): Requires users to type commands to interact with the system.</li>
+            </ul><br />
+            <b>File System</b><br />
+            <p>The file system is responsible for organizing and storing data on storage devices. It manages files,
+              directories, and their attributes. </p>
+            <b>Device Drivers</b><br />
+            <p>These are software components that enable the OS to communicate with hardware devices like keyboards,
+              mice, printers, and hard drives.</p>
+            <b>System Utilities</b><br />
+            <p>These are programs that perform specific tasks related to system maintenance and optimization, such as:
+              Disk defragmentation, Backup utilities, Antivirus software, and System monitoring tools.</p>
           </section>
 
           <section id="section6" class="learnsection">
-            <h2>The Motherboard</h2>
-            <p>Often referred to as the "backbone" of a computer, the motherboard is a large printed circuit board
-              that
-              connects all the major components. It houses the CPU, memory, storage devices, and expansion slots.
-              Think
-              of
-              it as the central hub where everything comes together.</p>
+            <h2>Functions of the Operating System</h2>
+            <p>An operating system (OS) performs several critical functions to manage a computer's resources and provide
+              a user-friendly environment. Let's explore some of the key functions:</p>
+            <b>Resource Management</b>
+            <ul>
+              <li>Memory Management: Allocates computer memory to different processes and applications, ensuring
+                efficient utilization.</li>
+              <li>Processor Management: Determines which tasks or processes should be executed by the CPU and when,
+                optimizing performance.</li>
+              <li>Device Management: Controls and coordinates input/output operations with hardware devices like
+                keyboards, monitors, and printers.</li>
+            </ul><br />
+            <b>Process Management</b>
+            <ul>
+              <li>Process Creation and Termination: Manages the lifecycle of processes (running applications) from
+                creation to termination.</li>
+              <li>Process Scheduling: Decides which process to execute next, based on factors like priority and
+                available resources.</li>
+              <li>Process Synchronization: Ensures that multiple processes can share data and resources without
+                conflicts.</li>
+            </ul><br />
+            <b>File Management</b>
+            <ul>
+              <li>File Creation, Deletion, and Modification: Handles the creation, deletion, and modification of files
+                and directories.</li>
+              <li>File Organization: Organizes files and directories in a hierarchical structure for easy access.</li>
+              <li>File Protection: Implements security measures to protect files from unauthorized access.</li>
+            </ul><br />
+            <b>User Interface</b>
+            <ul>
+              <li>Provides a Platform for Interaction: Offers a graphical or command-line interface for users to
+                interact with the computer.</li>
+              <li>Handles Input and Output: Translates user input (keyboard, mouse) into commands and displays output on
+                the screen.</li>
+            </ul><br />
+            <b>Security</b>
+            <ul>
+              <li>Access Control: Protects system resources and data from unauthorized access.</li>
+              <li>Error Handling: Detects and responds to system errors or failures.</li>
+              <li>Fault Tolerance: Ensures system reliability and availability in case of hardware or software failures.
+              </li>
+            </ul><br />
+            <p>By performing these essential functions, the operating system acts as the intermediary between the user
+              and the computer hardware, making it possible to effectively utilize the computer's resources.</p>
           </section>
 
           <section id="section7" class="learnsection">
-            <h2>The Computer Case</h2>
-            <p>The computer case is the enclosure that houses all the internal components of a computer. It protects
-              them
-              from physical damage and provides a structure for airflow. Cases come in various sizes and shapes, from
-              compact desktop cases to larger tower cases.</p>
+            <h2>User Interfaces</h2>
+            <p>A user interface (UI) is the bridge between a human and a computer. It determines how users interact with
+              an operating system. There are two primary types:</p>
+            <b>1. Graphical User Interface (GUI)</b>
+            <p>Most modern operating systems employ GUIs, offering a visual and intuitive way to interact with the
+              computer. GUIs utilize icons, windows, menus, and pointers to represent files, applications, and system
+              functions.</p>
+            <b>Key components of a GUI include:</b>
+            <ul>
+              <li>Desktop: The main screen where icons and windows are displayed.</li>
+              <li>Windows: Rectangular areas on the screen that contain applications or documents.</li>
+              <li>Icons: Small pictures representing files, applications, or folders.</li>
+              <li>Menus: Lists of commands or options.</li>
+              <li>Taskbar: Displays running applications and provides access to system functions.</li>
+            </ul><br />
+            <b>2. Command-Line Interface (CLI)</b><br />
+            <p>A CLI relies on text-based commands to interact with the computer. It is more complex but offers greater
+              control and efficiency for experienced users. Commands are typed directly into a terminal window and
+              executed by the operating system.</p>
+            <p>While GUIs have become the standard for most users, CLIs still have their place in specific scenarios,
+              such as server administration or scripting.</p>
+            <b>Key characteristics of a CLI include:</b><br />
+            <ul>
+              <li>Text-based input and output.</li>
+              <li>Precise command syntax.</li>
+              <li>Faster execution of tasks for experienced users.</li>
+            </ul><br />
+            <p>Many modern operating systems offer both GUI and CLI options, allowing users to choose the interface that
+              best suits their needs and expertise.</p>
           </section>
 
           <section id="section8" class="learnsection">
-            <h2>Power Supply Unit</h2>
-            <p>The PSU converts electrical power from the wall outlet into a usable form for the computer's
-              components.
-              It
-              provides the necessary voltage and current to power the entire system.</p>
+            <h2>File Management</h2>
+            <p>content</p>
           </section>
 
           <section id="section9" class="learnsection">
-            <h2>Graphics Processing Unit</h2>
-            <p>While not essential for all computers, a GPU is crucial for tasks that require heavy graphics
-              processing,
-              such as gaming and video editing. It handles the rendering of images and videos, taking the load off the
-              CPU.
-            </p>
+            <h2>OS vs Software</h2>
+            <p>content</p>
           </section>
 
           <section id="section10" class="learnsection">
-            <h2>Input Devices</h2>
-            <p>Input devices allow you to interact with the computer. Common input devices include:</p>
-            <ul>
-              <li>Keyboard: For entering text and commands.</li>
-              <li>Mouse: For navigating the computer's interface.</li>
-              <li>Microphone: For capturing audio input.</li>
-            </ul>
+            <h2>Troubleshooting Techniques</h2>
+            <p>content</p>
           </section>
 
           <section id="section11" class="learnsection">
-            <h2>Output Devices</h2>
-            <p>Output devices display or produce information generated by the computer. Common output devices include:
-            </p>
-            <ul>
-              <li>Monitor: Visual display of information.</li>
-              <li>Speakers: Audio output.</li>
-              <li>Printer: Produces physical copies of documents.</li>
-            </ul>
+            <h2>Computer Security</h2>
+            <p>Content</p>
           </section>
 
           <section id="section12" class="learnsection">
-            <h2>Cooling System</h2>
-            <p>Computers generate heat during operation, and a cooling system is essential to prevent overheating. It
-              typically consists of fans and a heat sink to dissipate heat.</p>
+            <h2>Conclusion</h2>
+            <p>Content</p>
           </section>
 
           <section id="section13" class="learnsection">
-            <h2>Expansion Cards</h2>
-            <p>Expansion cards can be inserted into slots on the motherboard to add functionality to the computer.
-              Examples
-              include:</p>
-            <ul>
-              <li>Graphics card: For improved graphics performance.</li>
-              <li>Sound card: For enhanced audio capabilities.</li>
-              <li>Network card: For connecting to a network.</li>
-            </ul>
-          </section>
-
-          <section id="section14" class="learnsection">
-            <h2>How It All Connects</h2>
-            <p>Now that you understand all functions of each of the components, let's quickly explore how the hardware
-              is assembled:</p>
-            <ul class="no-bullets">
-              <li>1. The Power Supply (PSU) is installed into the case to get the power from your wall outlet.</li>
-              <li>2. The PSU then attaches to the Motherboard with several smaller wired connections.</li>
-              <li>3. The Motherboard is secured to the case with special screws allowing it to not touch the metal of
-                the case.</li>
-              <li>4. The Central Processing Unit (CPU) has many small gold pins to fit perfectly on the Motherbord. It
-                normally has a heat sink and fan for cooling.</li>
-              <li>5. The Memory (RAM) is clamped into slots specifically designed for it.</li>
-              <li>6. The Storage is either connected via a ribbon cable or directly onto the Motherboard for NVMe SSDs.
-              </li>
-              <li>7. The Network adapter (Ethernet cable or WiFi) is connected to an expansion slot.</li>
-              <li>8. The Graphics Processing Unit (GPU) is connected to a specially designed expansion slot to allow
-                highspeeds.</li>
-            </ul>
-          </section>
-
-          <section id="section15" class="learnsection">
-            <h2>Conclusion</h2>
-            <p>This overview provides a solid foundation for understanding computer hardware. By grasping these
-              fundamental
-              components, you'll be well-equipped to explore more advanced topics and make informed decisions when
-              building
-              or upgrading your computer.</p>
-          </section>
-
-          <section id="section16" class="learnsection">
             <h2>Congratulations!</h2>
             <p>What is next for you? Let's do a knowledge check to see if you completely grasped the concepts you
               just learned.</p>
