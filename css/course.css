@@ -28,8 +28,8 @@ p {
 }
 
 ul {
-    margin-bottom: 5px;
-    padding-left: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 0.9em;
 }
 
 ul.no-bullets {

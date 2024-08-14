@@ -49,7 +49,7 @@ start();
 
 document.querySelector("#home").addEventListener("click", () => {
     window.speechSynthesis.cancel();
-    window.location.href = "../dashboard.htm";
+    window.location.href = "../../dashboard.htm";
 })
 
 window.speechSynthesis.onvoiceschanged = () => {
@@ -157,7 +157,7 @@ function learningComplete(index) {
     lock = getCookieVal("QLock","true");
     if (index == max && view == "learn") {
         document.querySelector("#quiz").classList.remove("disabled");
-        setCookie("QLock", "false", courseCode);
+        setCookie("QLock", "false", "courses/"+courseCode);
     }
     if(lock == "false") { document.querySelector("#quiz").classList.remove("disabled"); }
 }
@@ -199,8 +199,8 @@ function showContent(index) {
         document.querySelector(".learnsection.active").classList.remove("active");
         document.querySelector("#section" + parseInt(index)).classList.add("active");
         currentSection = parseInt(index);
-        setCookie("L", index, courseCode);
-        if (debug) console.log("current: section" + (currentSection));
+        setCookie("L", index, "courses/"+courseCode);
+        if (debug) console.log("setcookie/ current: section" + index + " " + courseCode + " " + (currentSection));
     } else {
         document.querySelector(".questions.active").classList.remove("active");
         document.querySelector("#q" + parseInt(index)).classList.add("active");
@@ -329,7 +329,7 @@ document.querySelector("#learn").addEventListener("click", () => {
     checkNav(currentSection);
     showContent(currentSection);
     updateProcessBar(currentSection);
-    setCookie("view","learn",courseCode);
+    setCookie("view","learn","courses/"+courseCode);
 })
 
 document.querySelector("#quiz").addEventListener("click", () => {
@@ -341,7 +341,7 @@ document.querySelector("#quiz").addEventListener("click", () => {
     checkNav(currentQuestion);
     showContent(currentQuestion);
     updateProcessBar(currentQuestion);
-    setCookie("view","quiz",courseCode);
+    setCookie("view","quiz","courses/"+courseCode);
 })
 
 function updateTab(view) {

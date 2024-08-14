@@ -1,3 +1,7 @@
+let courses = ["B-CH01", "B-OS01", "B-NB01", "B-SA01", "B-CS01"];
+let count = courses.length;
+let cidlist = [];
+
 function setCookie(cname, cvalue) {
     document.cookie = cname + "=" + cvalue + "; SameSite=None; Secure; expires=1 Jan 2030 12:00:00 UTC;";
 }
@@ -19,6 +23,9 @@ function getCookie(cname) {
 
 
 function startUp() {
+    courses.forEach(course => {
+        cidlist.push(getCookie(course))
+    });    
 }
 
 startUp();
@@ -27,7 +34,7 @@ document.querySelectorAll(".start-course").forEach(button => {
     let id = button.id;
     let cid = getCookie(id);
     button.addEventListener("click", () => {
-        window.location.href = id + "/index.htm";
+        window.location.href = "courses/"+ id + "/index.htm";
         if (cid != "completed") { setCookie(id, "enrolled"); }
     })
     
@@ -58,30 +65,37 @@ document.querySelectorAll(".start-course").forEach(button => {
 })
 
 function checkCourse(id, cid) {
-    let cid1 = getCookie("B-CH01");
-    let cid2 = getCookie("B-OS01");
-    let cid3 = getCookie("B-NB01");
-    let cid4 = getCookie("B-SA01");
-    let cid5 = getCookie("B-CS01");
+    index = courses.findIndex((element) => element == id);
+
+    if(index == 0) {
+        return true;
+    }
+    if((cidlist[index] == "") && cidlist[index-1] == "completed") {
+        return true;
+    } else {
+        return false;
+    }
+
+    /*
     switch (true) {
-        case (id == "B-CH01" && cid == ""):
+        case (id == "B-CH01"):
             //begin program path
             return true;
-        case (id == "B-OS01" && cid1 == "completed" && cid == ""):
+        case (id == "B-OS01" && cidlist[0] == "completed"):
             //do something
             return true;
-        case (id == "B-NB01" && cid1 == "completed" && cid2 == "completed" && cid == ""):
+        case (id == "B-NB01" && cidlist[0] == "completed" && cidlist[1] == "completed"):
             //do something
             return true;
-        case (id == "B-SA01" && cid1 == "completed" && cid2 == "completed" && cid3 == "completed" && cid == ""):
+        case (id == "B-SA01" && cidlist[0] == "completed" && cidlist[1] == "completed" && cidlist[2] == "completed"):
             //do something
             return true;
-        case (id == "B-CS01" && cid1 == "completed" && cid2 == "completed" && cid3 == "completed" && cid4 == "completed" && cid == ""):
+        case (id == "B-CS01" && cidlist[0] == "completed" && cidlist[1] == "completed" && cidlist[2] == "completed" && cidlist[3] == "completed"):
                 //do something
                 return true;
     
         default:
             return false;
     }
-
+    */
 }
