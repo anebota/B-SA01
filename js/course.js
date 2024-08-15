@@ -12,7 +12,7 @@ let debug = true;
 let defaultvoice = 0;
 var lastId;
 let courseCode = getCourseCode();
-let add = getCourseCode();
+let add = getCourseCode2();
 
 function getCourseCode(){
     let temp = window.location.href.split("/");
