@@ -12,12 +12,24 @@ let debug = true;
 let defaultvoice = 0;
 var lastId;
 let courseCode = getCourseCode();
+let add = getCourseCode();
 
 function getCourseCode(){
     let temp = window.location.href.split("/");
     return temp[temp.length-2];    
 }
 
+function getCourseCode2(){
+    let temp = window.location.href.split("/");
+    if (temp[temp.length-4] == "cha-courses") {
+        return "cha-courses/";
+    } else {
+        return "";
+    }   
+}
+
+
+console.log(getCourseCode2());
 console.log(getCourseCode());
 /*
 let imported;
@@ -157,7 +169,7 @@ function learningComplete(index) {
     lock = getCookieVal("QLock","true");
     if (index == max && view == "learn") {
         document.querySelector("#quiz").classList.remove("disabled");
-        setCookie("QLock", "false", "courses/"+courseCode);
+        setCookie("QLock", "false", add+"courses/"+courseCode);
     }
     if(lock == "false") { document.querySelector("#quiz").classList.remove("disabled"); }
 }
@@ -199,7 +211,7 @@ function showContent(index) {
         document.querySelector(".learnsection.active").classList.remove("active");
         document.querySelector("#section" + parseInt(index)).classList.add("active");
         currentSection = parseInt(index);
-        setCookie("L", index, "courses/"+courseCode);
+        setCookie("L", index, add+"courses/"+courseCode);
         if (debug) console.log("setcookie/ current: section" + index + " " + courseCode + " " + (currentSection));
     } else {
         document.querySelector(".questions.active").classList.remove("active");
@@ -329,7 +341,7 @@ document.querySelector("#learn").addEventListener("click", () => {
     checkNav(currentSection);
     showContent(currentSection);
     updateProcessBar(currentSection);
-    setCookie("view","learn","courses/"+courseCode);
+    setCookie("view","learn",add+"courses/"+courseCode);
 })
 
 document.querySelector("#quiz").addEventListener("click", () => {
@@ -341,7 +353,7 @@ document.querySelector("#quiz").addEventListener("click", () => {
     checkNav(currentQuestion);
     showContent(currentQuestion);
     updateProcessBar(currentQuestion);
-    setCookie("view","quiz","courses/"+courseCode);
+    setCookie("view","quiz",add+"courses/"+courseCode);
 })
 
 function updateTab(view) {
