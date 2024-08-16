@@ -40,13 +40,14 @@ document.querySelectorAll(".start-course").forEach(button => {
     
     console.log(cid);
     if (cid == "enrolled") {
-        button.innerHTML = "Enrolled";
+        button.innerHTML = "In Progress";
         button.classList.remove("btn-primary");
-        button.classList.add("btn-success");
+        button.classList.add("btn-warning");
         button.disabled = false;
     } else if (cid == "completed") {
         button.innerHTML = "Completed";
         button.classList.remove("btn-primary");
+        button.classList.remove("btn-warning");
         button.classList.add("btn-success");
         button.disabled = false;
     } else {
@@ -56,7 +57,7 @@ document.querySelectorAll(".start-course").forEach(button => {
             button.classList.remove("btn-secondary");
             button.disabled = false;
         } else {
-            button.innerHTML = "Not Available";
+            button.innerHTML = "Not Enrolled";
             button.classList.remove("btn-primary");
             button.classList.add("btn-secondary");
             button.disabled = true;
