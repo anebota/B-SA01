@@ -32,6 +32,11 @@ ul {
     padding-bottom: 0.9em;
 }
 
+ul > li > ul {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 ul.no-bullets {
     list-style-type: none;
     padding-left: 0;
